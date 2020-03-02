@@ -283,9 +283,11 @@ class CocoSGDataset(Dataset):
     
     # Add bounding boxes and masks
     for object_data in self.image_id_to_objects[image_id]:
-      if not (self.vocab['object_idx_to_name'][object_data['category_id']]\
-         in self.image_id_to_sg_objects[image_id]):
+      object_name = self.vocab['object_idx_to_name'][object_data['category_id']]
+      if not (object_name in self.image_id_to_sg_objects[image_id]):
+        print("Omitting" + object_name)
         continue
+      print("bbox: " + object_name + " " + object_data['bbox'])
       x, y, w, h = object_data['bbox']
       x0 = x / WW
       y0 = y / HH
