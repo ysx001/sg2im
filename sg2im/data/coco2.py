@@ -127,6 +127,8 @@ class CocoSGDataset(Dataset):
     # Add object data from instances
     self.image_id_to_objects = defaultdict(list)
     self.image_id_to_objects_names = defaultdict(list)
+    self.image_id_to_objects_bbox = defaultdict(dict)
+    self.image_id_to_objects_seg = defaultdict(dict)
     for object_data in instances_data['annotations']:
       image_id = object_data['image_id']
       _, _, w, h = object_data['bbox']
@@ -137,6 +139,8 @@ class CocoSGDataset(Dataset):
       if box_ok:
         self.image_id_to_objects_names[image_id].append(object_name)
         self.image_id_to_objects[image_id].append(object_data)
+        self.image_id_to_objects_bbox[image_id][object_name] = object_data['bbox']
+        self.image_id_to_objects_seg[image_id][object_name] = object_data['segmentation']
 
     # Add object data from instances
     self.image_id_to_sg_objects = defaultdict(list)
@@ -222,7 +226,7 @@ class CocoSGDataset(Dataset):
     match = {}
     for sg_obj in sg_objs:
       for coco_obj in coco_objs:
-        if coco_obj not in match and ((sg_obj in coco_obj) or (coco_obj in sg_obj)):
+        if ((sg_obj in coco_obj) or (coco_obj in sg_obj)):
           match[sg_obj] = coco_obj
     return match 
 
@@ -280,6 +284,30 @@ class CocoSGDataset(Dataset):
     objs, boxes, masks = [], [], []
     for object_name in self.image_id_to_sg_objects[image_id]:
       objs.append(self.vocab['object_name_to_idx'][object_name])
+      # bbox
+      x, y, w, h = self.image_id_to_objects_bbox[image_id][object_name]
+      x0 = x / WW
+      y0 = y / HH
+      x1 = (x + w) / WW
+      y1 = (y + h) / HH
+      boxes.append(torch.FloatTensor([x0, y0, x1, y1]))
+      
+      # This will give a numpy array of shape (HH, WW)
+      mask = seg_to_mask(self.image_id_to_objects_seg[image_id][object_name], WW, HH)
+
+      # Crop the mask according to the bounding box, being careful to
+      # ensure that we don't crop a zero-area region
+      mx0, mx1 = int(round(x)), int(round(x + w))
+      my0, my1 = int(round(y)), int(round(y + h))
+      mx1 = max(mx0 + 1, mx1)
+      my1 = max(my0 + 1, my1)
+      mask = mask[my0:my1, mx0:mx1]
+      mask = imresize(255.0 * mask, (self.mask_size, self.mask_size),
+                      mode='constant')
+      mask = torch.from_numpy((mask > 128).astype(np.int64))
+      masks.append(mask)
+
+      
     
     # Add bounding boxes and masks
     for object_data in self.image_id_to_objects[image_id]:
