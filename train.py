@@ -31,6 +31,7 @@ from torch.utils.data import DataLoader
 
 from sg2im.data import imagenet_deprocess_batch
 from sg2im.data.coco import CocoSceneGraphDataset, coco_collate_fn
+from sg2im.data.coco2 import CocoSGDataset, coco_sg_collate_fn
 from sg2im.data.vg import VgSceneGraphDataset, vg_collate_fn
 from sg2im.discriminators import PatchDiscriminator, AcCropDiscriminator
 from sg2im.losses import get_gan_losses
@@ -226,6 +227,38 @@ def build_img_discriminator(args, vocab):
   discriminator = PatchDiscriminator(**d_kwargs)
   return discriminator, d_kwargs
 
+def build_coco_sg_dsets(args):
+  dset_kwargs = {
+    'image_dir': args.coco_train_image_dir,
+    'instances_json': args.coco_train_instances_json,
+    'sg_json': args.coco_sg_json,
+    'image_size': args.image_size,
+    'mask_size': args.mask_size,
+    'max_samples': args.num_train_samples,
+    'min_object_size': args.min_object_size,
+    'min_objects_per_image': args.min_objects_per_image,
+    'instance_whitelist': args.instance_whitelist,
+    'stuff_whitelist': args.stuff_whitelist,
+    'include_other': args.coco_include_other,
+    'include_relationships': args.include_relationships,
+  }
+  train_dset = CocoSGDataset(**dset_kwargs)
+  num_objs = train_dset.total_objects()
+  num_imgs = len(train_dset)
+  print('Training dataset has %d images and %d objects' % (num_imgs, num_objs))
+  print('(%.2f objects per image)' % (float(num_objs) / num_imgs))
+
+  dset_kwargs['image_dir'] = args.coco_val_image_dir
+  dset_kwargs['instances_json'] = args.coco_val_instances_json
+  dset_kwargs['stuff_json'] = args.coco_val_stuff_json
+  dset_kwargs['max_samples'] = args.num_val_samples
+  val_dset = CocoSGDataset(**dset_kwargs)
+
+  assert train_dset.vocab == val_dset.vocab
+  vocab = json.loads(json.dumps(train_dset.vocab))
+
+  return vocab, train_dset, val_dset
+
 
 def build_coco_dsets(args):
   dset_kwargs = {
@@ -292,6 +325,9 @@ def build_loaders(args):
   elif args.dataset == 'coco':
     vocab, train_dset, val_dset = build_coco_dsets(args)
     collate_fn = coco_collate_fn
+  elif args.dataset == 'coco_sg':
+    vocab, train_dset, val_dset = build_coco_sg_dsets(args)
+    collate_fn = coco_sg_collate_fn
 
   loader_kwargs = {
     'batch_size': args.batch_size,
@@ -396,19 +432,20 @@ def calculate_model_losses(args, skip_pixel_loss, model, img, img_pred,
   l1_pixel_loss = F.l1_loss(img_pred, img)
   total_loss = add_loss(total_loss, l1_pixel_loss, losses, 'L1_pixel_loss',
                         l1_pixel_weight)
-  loss_bbox = F.mse_loss(bbox_pred, bbox)
-  total_loss = add_loss(total_loss, loss_bbox, losses, 'bbox_pred',
-                        args.bbox_pred_loss_weight)
+
+  # loss_bbox = F.mse_loss(bbox_pred, bbox)
+  # total_loss = add_loss(total_loss, loss_bbox, losses, 'bbox_pred',
+  #                       args.bbox_pred_loss_weight)
 
   if args.predicate_pred_loss_weight > 0:
     loss_predicate = F.cross_entropy(predicate_scores, predicates)
     total_loss = add_loss(total_loss, loss_predicate, losses, 'predicate_pred',
                           args.predicate_pred_loss_weight)
 
-  if args.mask_loss_weight > 0 and masks is not None and masks_pred is not None:
-    mask_loss = F.binary_cross_entropy(masks_pred, masks.float())
-    total_loss = add_loss(total_loss, mask_loss, losses, 'mask_loss',
-                          args.mask_loss_weight)
+  # if args.mask_loss_weight > 0 and masks is not None and masks_pred is not None:
+  #   mask_loss = F.binary_cross_entropy(masks_pred, masks.float())
+  #   total_loss = add_loss(total_loss, mask_loss, losses, 'mask_loss',
+  #                         args.mask_loss_weight)
   return total_loss, losses
 
 
@@ -425,7 +462,8 @@ def main(args):
 
   optimizer = torch.optim.Adam(model.parameters(), lr=args.learning_rate)
 
-  obj_discriminator, d_obj_kwargs = build_obj_discriminator(args, vocab)
+  obj_discriminator = None
+  # obj_discriminator, d_obj_kwargs = build_obj_discriminator(args, vocab)
   img_discriminator, d_img_kwargs = build_img_discriminator(args, vocab)
   gan_g_loss, gan_d_loss = get_gan_losses(args.gan_loss_type)
 
@@ -474,7 +512,6 @@ def main(args):
       'args': args.__dict__,
       'vocab': vocab,
       'model_kwargs': model_kwargs,
-      'd_obj_kwargs': d_obj_kwargs,
       'd_img_kwargs': d_img_kwargs,
       'losses_ts': [],
       'losses': defaultdict(list),

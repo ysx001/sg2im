@@ -40,7 +40,12 @@ class Sg2ImModel(nn.Module):
     # vec_noise_dim, gconv_mode, box_anchor, decouple_obj_predictions
     if len(kwargs) > 0:
       print('WARNING: Model got unexpected kwargs ', kwargs)
-
+    
+    # for key, val in vocab.items():
+      # print(key)
+      # print(val)
+    # print(vocab["object_idx_to_name"])
+    # print(vocab["pred_idx_to_name"])
     self.vocab = vocab
     self.image_size = image_size
     self.layout_noise_dim = layout_noise_dim
