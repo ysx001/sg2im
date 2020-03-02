@@ -79,6 +79,8 @@ parser.add_argument('--coco_val_image_dir',
          default=os.path.join(COCO_DIR, 'images/val2017'))
 parser.add_argument('--coco_train_instances_json',
          default=os.path.join(COCO_DIR, 'annotations/instances_train2017.json'))
+parser.add_argument('--coco_sg_json',
+         default=os.path.join(COCO_DIR, 'annotations/sg_train2017.json'))
 parser.add_argument('--coco_train_stuff_json',
          default=os.path.join(COCO_DIR, 'annotations/stuff_train2017.json'))
 parser.add_argument('--coco_val_instances_json',
