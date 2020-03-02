@@ -307,37 +307,6 @@ class CocoSGDataset(Dataset):
       mask = torch.from_numpy((mask > 128).astype(np.int64))
       masks.append(mask)
 
-      
-    
-    # Add bounding boxes and masks
-    for object_data in self.image_id_to_objects[image_id]:
-      object_name = self.vocab['object_idx_to_name'][object_data['category_id']]
-      if not (object_name in self.image_id_to_sg_objects[image_id]):
-        print("Omitting" + object_name)
-        continue
-      print("bbox: " + object_name + " " + object_data['bbox'])
-      x, y, w, h = object_data['bbox']
-      x0 = x / WW
-      y0 = y / HH
-      x1 = (x + w) / WW
-      y1 = (y + h) / HH
-      boxes.append(torch.FloatTensor([x0, y0, x1, y1]))
-
-      # This will give a numpy array of shape (HH, WW)
-      mask = seg_to_mask(object_data['segmentation'], WW, HH)
-
-      # Crop the mask according to the bounding box, being careful to
-      # ensure that we don't crop a zero-area region
-      mx0, mx1 = int(round(x)), int(round(x + w))
-      my0, my1 = int(round(y)), int(round(y + h))
-      mx1 = max(mx0 + 1, mx1)
-      my1 = max(my0 + 1, my1)
-      mask = mask[my0:my1, mx0:mx1]
-      mask = imresize(255.0 * mask, (self.mask_size, self.mask_size),
-                      mode='constant')
-      mask = torch.from_numpy((mask > 128).astype(np.int64))
-      masks.append(mask)
-
     # Add dummy __image__ object
     objs.append(self.vocab['object_name_to_idx']['__image__'])
     boxes.append(torch.FloatTensor([0, 0, 1, 1]))
