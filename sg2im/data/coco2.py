@@ -97,6 +97,8 @@ class CocoSGDataset(Dataset):
       self.image_id_to_filename[image_id] = filename
       self.image_id_to_size[image_id] = (width, height)
 
+    print("Total inital images %d" % (len(self.image_ids)))
+
     self.vocab = {
       'object_name_to_idx': {}    
     }
