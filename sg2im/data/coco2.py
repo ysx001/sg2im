@@ -306,7 +306,9 @@ class CocoSGDataset(Dataset):
                       mode='constant')
       mask = torch.from_numpy((mask > 128).astype(np.int64))
       masks.append(mask)
-
+    
+    assert len(masks) == len(objs)
+    assert len(boxes) == len(objs)
     # Add dummy __image__ object
     objs.append(self.vocab['object_name_to_idx']['__image__'])
     boxes.append(torch.FloatTensor([0, 0, 1, 1]))
