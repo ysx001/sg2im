@@ -46,7 +46,7 @@ VG_DIR = os.path.expanduser('datasets/vg')
 COCO_DIR = os.path.expanduser('datasets/coco')
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--dataset', default='coco', choices=['vg', 'coco'])
+parser.add_argument('--dataset', default='coco', choices=['vg', 'coco', 'coco_sg'])
 
 # Optimization hyperparameters
 parser.add_argument('--batch_size', default=32, type=int)
