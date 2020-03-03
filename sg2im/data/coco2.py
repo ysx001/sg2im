@@ -388,9 +388,9 @@ class CocoSGDataset(Dataset):
       triples.append([s, p, o])
 
     for rel in self.image_id_to_relationships[image_id]:
-      s = rel[0]
+      s = int(rel[0])
       p = self.vocab['pred_name_to_idx'].get(rel[1], None)
-      o = rel[1]
+      o = int(rel[1])
       if s is not None and o is not None and p is not None:
         triples.append([s, p, o])
     
