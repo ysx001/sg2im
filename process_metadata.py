@@ -136,8 +136,29 @@ def read_instance(instances_data):
             print(key, value)
         break
 
+def match(sg_objs, coco_objs):
+    match = {}
+    idx_map = {}
+    sg_idx = 0
+    new_sg_idx = 0
+    for sg_obj in sg_objs:
+      for coco_obj in coco_objs:
+        if ((sg_obj in coco_obj) or (coco_obj in sg_obj)):
+          match[sg_obj] = coco_obj
+      if match.get(sg_obj, None) != None:
+        idx_map[sg_idx] = new_sg_idx
+        new_sg_idx += 1
+      sg_idx += 1
+      
+    return match, idx_map 
+
 if __name__ == '__main__':
   args = parser.parse_args()
 #   read_coco(args.instance_json, args.sg_json)
-  read_json(args.instance_json)
+#   read_json(args.instance_json)
 #   combine_json()
+  a = ['aaa', 'aaa', 'b', 'c', 'd']
+  b = ['aaa', 'c', 'd']
+  match, idx_map = match(a, b)
+  print(match)
+  print(idx_map)

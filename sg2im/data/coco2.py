@@ -161,7 +161,8 @@ class CocoSGDataset(Dataset):
       # add the objects to vocab
       sg_obj_list = []
       names = set()
-      match = self.match_objs(sg_obj['objects'], self.image_id_to_objects_names[image_id])
+      match, idx_map = self.match_objs(sg_obj['objects'], \
+        self.image_id_to_objects_names[image_id])
       for key, value in match.items():
         # add the matched coco object to names
         names.add(value)
@@ -178,9 +179,11 @@ class CocoSGDataset(Dataset):
         if (sg_obj['objects'][rel[0]] in sg_obj_list) \
           and (sg_obj['objects'][rel[2]] in sg_obj_list):
           preds.add(rel[1])
-          newRel.append(match[sg_obj['objects'][rel[0]]])
+          s_idx = rel[0]
+          newRel.append(idx_map[s_idx])
           newRel.append(rel[1])
-          newRel.append(match[sg_obj['objects'][rel[2]]])      
+          o_idx = rel[2]
+          newRel.append(idx_map[o_idx])      
           self.image_id_to_relationships[image_id].append(newRel)
       pred_counter.update(preds)
 
@@ -224,11 +227,19 @@ class CocoSGDataset(Dataset):
 
   def match_objs(self, sg_objs, coco_objs):
     match = {}
+    idx_map = {}
+    sg_idx = 0
+    new_sg_idx = 0
     for sg_obj in sg_objs:
       for coco_obj in coco_objs:
         if ((sg_obj in coco_obj) or (coco_obj in sg_obj)):
           match[sg_obj] = coco_obj
-    return match 
+      if match.get(sg_obj, None) != None:
+        idx_map[sg_idx] = new_sg_idx
+        new_sg_idx += 1
+      sg_idx += 1
+      
+    return match, idx_map 
 
   def set_image_size(self, image_size):
     print('called set_image_size', image_size)
@@ -377,9 +388,9 @@ class CocoSGDataset(Dataset):
       triples.append([s, p, o])
 
     for rel in self.image_id_to_relationships[image_id]:
-      s = self.vocab['object_name_to_idx'].get(rel[0], None)
+      s = rel[0]
       p = self.vocab['pred_name_to_idx'].get(rel[1], None)
-      o = self.vocab['object_name_to_idx'].get(rel[2], None)
+      o = rel[1]
       if s is not None and o is not None and p is not None:
         triples.append([s, p, o])
     
