@@ -146,7 +146,7 @@ class CocoSGDataset(Dataset):
       box_ok = box_area > min_object_size
       object_name = object_idx_to_name[object_data['category_id']]
       if box_ok:
-        for suf in suffix:
+        for suf in self.suffix:
           new_image_id = str(image_id) + suf
           self.image_id_to_objects_names[new_image_id].append(object_name)
           self.image_id_to_objects[new_image_id].append(object_data)
