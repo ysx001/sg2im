@@ -307,6 +307,7 @@ class CocoSGDataset(Dataset):
       means that (objs[i], p, objs[j]) is a triple.
     """
     image_id = self.image_ids[index]
+    print(image_id + str(image_id))
     
     filename = self.image_id_to_filename[image_id]
     image_path = os.path.join(self.image_dir, filename)
