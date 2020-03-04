@@ -1,0 +1,461 @@
+Total inital images 118287
+292505
+==sg_objs
+['motorcycle', 'group', 'box']
+==image_id_to_objects_names[image_id]
+['motorcycle', 'person', 'umbrella', 'umbrella']
+==sg_obj_list
+['motorcycle']
+==image_id_to_sg_objects[image_id]
+['motorcycle']
+[0, 'park to', 1]
+[1, 'of', 2]
+==image_id_to_relationships
+[]
+292505
+==sg_objs
+['motorcycle', 'sidewalk', 'cafe']
+==image_id_to_objects_names[image_id]
+['motorcycle', 'person', 'umbrella', 'umbrella']
+==sg_obj_list
+['motorcycle']
+==image_id_to_sg_objects[image_id]
+['motorcycle', 'motorcycle']
+[0, 'park on', 1]
+[1, 'near', 2]
+==image_id_to_relationships
+[]
+292505
+==sg_objs
+['iron fence']
+==image_id_to_objects_names[image_id]
+['motorcycle', 'person', 'umbrella', 'umbrella']
+==sg_obj_list
+[]
+==image_id_to_sg_objects[image_id]
+['motorcycle', 'motorcycle']
+==image_id_to_relationships
+[]
+292505
+==sg_objs
+['motorcycle', 'area']
+==image_id_to_objects_names[image_id]
+['motorcycle', 'person', 'umbrella', 'umbrella']
+==sg_obj_list
+['motorcycle']
+==image_id_to_sg_objects[image_id]
+['motorcycle', 'motorcycle', 'motorcycle']
+[0, 'park in front of', 1]
+==image_id_to_relationships
+[]
+292505
+==sg_objs
+['police motorcycle', 'fence', 'table']
+==image_id_to_objects_names[image_id]
+['motorcycle', 'person', 'umbrella', 'umbrella']
+==sg_obj_list
+['police motorcycle']
+==image_id_to_sg_objects[image_id]
+['motorcycle', 'motorcycle', 'motorcycle', 'motorcycle']
+[0, 'park near', 1]
+[0, 'park near', 2]
+==image_id_to_relationships
+[]
+493610
+==sg_objs
+['group', 'people', 'top', 'truck']
+==image_id_to_objects_names[image_id]
+['truck', 'person', 'person', 'bus', 'person']
+==sg_obj_list
+['truck']
+==image_id_to_sg_objects[image_id]
+['truck']
+[0, 'of', 1]
+[0, 'cram into', 2]
+[0, 'cram on', 2]
+[2, 'of', 3]
+==image_id_to_relationships
+[]
+493610
+==sg_objs
+['truck', 'people', 'dirt road']
+==image_id_to_objects_names[image_id]
+['truck', 'person', 'person', 'bus', 'person']
+==sg_obj_list
+['truck']
+==image_id_to_sg_objects[image_id]
+['truck', 'truck']
+[0, 'of', 1]
+[1, 'drive down', 2]
+==image_id_to_relationships
+[]
+493610
+==sg_objs
+['truck']
+==image_id_to_objects_names[image_id]
+['truck', 'person', 'person', 'bus', 'person']
+==sg_obj_list
+['truck']
+==image_id_to_sg_objects[image_id]
+['truck', 'truck', 'truck']
+==image_id_to_relationships
+[]
+493610
+==sg_objs
+['van', 'back', 'passenger']
+==image_id_to_objects_names[image_id]
+['truck', 'person', 'person', 'bus', 'person']
+==sg_obj_list
+[]
+==image_id_to_sg_objects[image_id]
+['truck', 'truck', 'truck']
+[0, 'with', 1]
+[0, 'carry', 2]
+[1, 'carry', 2]
+==image_id_to_relationships
+[]
+493610
+==sg_objs
+['Truck', 'roof']
+==image_id_to_objects_names[image_id]
+['truck', 'person', 'person', 'bus', 'person']
+==sg_obj_list
+[]
+==image_id_to_sg_objects[image_id]
+['truck', 'truck', 'truck']
+[0, 'on', 1]
+==image_id_to_relationships
+[]
+470112
+==sg_objs
+['table', 'desk', 'laptop']
+==image_id_to_objects_names[image_id]
+['chair', 'laptop']
+==sg_obj_list
+['laptop']
+==image_id_to_sg_objects[image_id]
+['laptop']
+[0, 'use as', 1]
+[0, 'use for', 2]
+==image_id_to_relationships
+[]
+470112
+==sg_objs
+['chair', 'table', 'computer']
+==image_id_to_objects_names[image_id]
+['chair', 'laptop']
+==sg_obj_list
+['chair']
+==image_id_to_sg_objects[image_id]
+['laptop', 'chair']
+[0, 'sit in front of', 1]
+[0, 'sit with', 2]
+[2, 'on', 0]
+==image_id_to_relationships
+[]
+470112
+==sg_objs
+['laptop']
+==image_id_to_objects_names[image_id]
+['chair', 'laptop']
+==sg_obj_list
+['laptop']
+==image_id_to_sg_objects[image_id]
+['laptop', 'chair', 'laptop']
+[0, 'on', 0]
+==image_id_to_relationships
+[[0, 'on', 0]]
+470112
+==sg_objs
+['nothing', 'room', 'desk', 'laptop', 'chair']
+==image_id_to_objects_names[image_id]
+['chair', 'laptop']
+==sg_obj_list
+['laptop', 'chair']
+==image_id_to_sg_objects[image_id]
+['laptop', 'chair', 'laptop', 'laptop', 'chair']
+[0, 'in', 1]
+[1, 'except', 2]
+[1, 'except', 3]
+[1, 'except', 4]
+==image_id_to_relationships
+[[0, 'on', 0]]
+470112
+==sg_objs
+['computer', 'headphone', 'headphone', 'table', 'office']
+==image_id_to_objects_names[image_id]
+['chair', 'laptop']
+==sg_obj_list
+[]
+==image_id_to_sg_objects[image_id]
+['laptop', 'chair', 'laptop', 'laptop', 'chair']
+[0, 'sit on', 3]
+[1, 'sit on', 3]
+[2, 'sit on', 3]
+[3, 'in', 4]
+==image_id_to_relationships
+[[0, 'on', 0]]
+80819
+==sg_objs
+['plate', 'rice', 'broccoli', 'type', 'meat']
+==image_id_to_objects_names[image_id]
+['broccoli']
+==sg_obj_list
+['broccoli']
+==image_id_to_sg_objects[image_id]
+['broccoli']
+[0, 'with', 1]
+[0, 'with', 2]
+[0, 'with', 3]
+[0, 'of', 4]
+==image_id_to_relationships
+[]
+80819
+==sg_objs
+['close-up', 'food', 'plate']
+==image_id_to_objects_names[image_id]
+['broccoli']
+==sg_obj_list
+[]
+==image_id_to_sg_objects[image_id]
+['broccoli']
+[0, 'of', 1]
+[1, 'on', 2]
+==image_id_to_relationships
+[]
+80819
+==sg_objs
+['side', 'broccoli']
+==image_id_to_objects_names[image_id]
+['broccoli']
+==sg_obj_list
+['broccoli']
+==image_id_to_sg_objects[image_id]
+['broccoli', 'broccoli']
+[0, 'of', 1]
+==image_id_to_relationships
+[]
+80819
+==sg_objs
+['plate', 'food', 'rice', 'broccoli', 'beef']
+==image_id_to_objects_names[image_id]
+['broccoli']
+==sg_obj_list
+['broccoli']
+==image_id_to_sg_objects[image_id]
+['broccoli', 'broccoli', 'broccoli']
+[0, 'of', 1]
+[0, 'with', 2]
+[0, 'with', 3]
+[0, 'with', 4]
+==image_id_to_relationships
+[]
+80819
+==sg_objs
+['rice', 'plate']
+==image_id_to_objects_names[image_id]
+['broccoli']
+==sg_obj_list
+[]
+==image_id_to_sg_objects[image_id]
+['broccoli', 'broccoli', 'broccoli']
+[0, 'on', 1]
+==image_id_to_relationships
+[]
+77137
+==sg_objs
+['bedroom', 'wall', 'bed', 'dresser', 'lamp']
+==image_id_to_objects_names[image_id]
+['bed']
+==sg_obj_list
+['bedroom', 'bed']
+==image_id_to_sg_objects[image_id]
+['bed', 'bed']
+[0, 'with', 1]
+[0, 'with', 2]
+[0, 'with', 3]
+[0, 'with', 4]
+==image_id_to_relationships
+[[0, 'with', 1]]
+77137
+==sg_objs
+['bed', 'window', 'bedroom']
+==image_id_to_objects_names[image_id]
+['bed']
+==sg_obj_list
+['bed', 'bedroom']
+==image_id_to_sg_objects[image_id]
+['bed', 'bed', 'bed', 'bed']
+[0, 'sit next to', 1]
+[0, 'sit in', 2]
+==image_id_to_relationships
+[[0, 'with', 1], [0, 'sit in', 1]]
+77137
+==sg_objs
+['bed', 'room']
+==image_id_to_objects_names[image_id]
+['bed']
+==sg_obj_list
+['bed']
+==image_id_to_sg_objects[image_id]
+['bed', 'bed', 'bed', 'bed', 'bed']
+[0, 'in', 1]
+==image_id_to_relationships
+[[0, 'with', 1], [0, 'sit in', 1]]
+77137
+==sg_objs
+['bedroom', 'item', 'room']
+==image_id_to_objects_names[image_id]
+['bed']
+==sg_obj_list
+['bedroom']
+==image_id_to_sg_objects[image_id]
+['bed', 'bed', 'bed', 'bed', 'bed', 'bed']
+[1, 'in', 2]
+==image_id_to_relationships
+[[0, 'with', 1], [0, 'sit in', 1]]
+77137
+==sg_objs
+['bed', 'hotel room']
+==image_id_to_objects_names[image_id]
+['bed']
+==sg_obj_list
+['bed']
+==image_id_to_sg_objects[image_id]
+['bed', 'bed', 'bed', 'bed', 'bed', 'bed', 'bed']
+[0, 'in', 1]
+==image_id_to_relationships
+[[0, 'with', 1], [0, 'sit in', 1]]
+381972
+==sg_objs
+['curious', 'curious', 'home hallway', 'background', 'belongings']
+==image_id_to_objects_names[image_id]
+['cat', 'dining table']
+==sg_obj_list
+[]
+==image_id_to_sg_objects[image_id]
+[]
+[0, 'cat in', 2]
+[0, 'cat with', 3]
+[1, 'cat in', 2]
+[1, 'cat with', 3]
+[3, 'of', 4]
+==image_id_to_relationships
+[]
+381972
+==sg_objs
+['passage', 'cat']
+==image_id_to_objects_names[image_id]
+['cat', 'dining table']
+==sg_obj_list
+['cat']
+==image_id_to_sg_objects[image_id]
+['cat']
+==image_id_to_relationships
+[]
+381972
+==sg_objs
+['cat', 'cardboard box']
+==image_id_to_objects_names[image_id]
+['cat', 'dining table']
+==sg_obj_list
+['cat']
+==image_id_to_sg_objects[image_id]
+['cat', 'cat']
+[0, 'wander around in front of', 1]
+==image_id_to_relationships
+[]
+381972
+==sg_objs
+['image', 'cat', 'kitchen']
+==image_id_to_objects_names[image_id]
+['cat', 'dining table']
+==sg_obj_list
+['cat']
+==image_id_to_sg_objects[image_id]
+['cat', 'cat', 'cat']
+[0, 'of', 1]
+[1, 'walk in', 2]
+==image_id_to_relationships
+[]
+381972
+==sg_objs
+['kitty', 'box']
+==image_id_to_objects_names[image_id]
+['cat', 'dining table']
+==sg_obj_list
+[]
+==image_id_to_sg_objects[image_id]
+['cat', 'cat', 'cat']
+[0, 'walk among', 1]
+==image_id_to_relationships
+[]
+408099
+==sg_objs
+['table', 'kind', 'food', 'plate']
+==image_id_to_objects_names[image_id]
+['dining table', 'potted plant', 'chair', 'chair', 'chair']
+==sg_obj_list
+['table']
+==image_id_to_sg_objects[image_id]
+['dining table']
+[0, 'fill with', 1]
+[0, 'fill on', 3]
+[1, 'of', 2]
+==image_id_to_relationships
+[]
+408099
+==sg_objs
+['dinning table', 'buffet assortment', 'food item']
+==image_id_to_objects_names[image_id]
+['dining table', 'potted plant', 'chair', 'chair', 'chair']
+==sg_obj_list
+[]
+==image_id_to_sg_objects[image_id]
+['dining table']
+[0, 'with', 1]
+[0, 'of', 2]
+==image_id_to_relationships
+[]
+408099
+==sg_objs
+['table', 'plate', 'food']
+==image_id_to_objects_names[image_id]
+['dining table', 'potted plant', 'chair', 'chair', 'chair']
+==sg_obj_list
+['table']
+==image_id_to_sg_objects[image_id]
+['dining table', 'dining table']
+[0, 'top with', 1]
+[1, 'of', 2]
+==image_id_to_relationships
+[]
+408099
+==sg_objs
+['buffet length table', 'dish', 'food']
+==image_id_to_objects_names[image_id]
+['dining table', 'potted plant', 'chair', 'chair', 'chair']
+==sg_obj_list
+[]
+==image_id_to_sg_objects[image_id]
+['dining table', 'dining table']
+[0, 'cover in', 1]
+[1, 'of', 2]
+==image_id_to_relationships
+[]
+408099
+==sg_objs
+['buffet', 'food item', 'table']
+==image_id_to_objects_names[image_id]
+['dining table', 'potted plant', 'chair', 'chair', 'chair']
+==sg_obj_list
+['table']
+==image_id_to_sg_objects[image_id]
+['dining table', 'dining table', 'dining table']
+[0, 'of', 1]
+[0, 'set on', 2]
+==image_id_to_relationships
+[]
+Found 9 object categories.
+After pruning, 7 images left.
+Found 10 relationship types

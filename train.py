@@ -79,21 +79,17 @@ parser.add_argument('--coco_val_image_dir',
          default=os.path.join(COCO_DIR, 'images/val2017'))
 parser.add_argument('--coco_train_instances_json',
          default=os.path.join(COCO_DIR, 'annotations/instances_train2017.json'))
-parser.add_argument('--coco_train_sg_json',
-         default=os.path.join(COCO_DIR, 'annotations/sg_train2017.json'))
 parser.add_argument('--coco_train_stuff_json',
          default=os.path.join(COCO_DIR, 'annotations/stuff_train2017.json'))
 parser.add_argument('--coco_val_instances_json',
          default=os.path.join(COCO_DIR, 'annotations/instances_val2017.json'))
-parser.add_argument('--coco_val_sg_json',
-         default=os.path.join(COCO_DIR, 'annotations/sg_val2017.json'))
 parser.add_argument('--coco_val_stuff_json',
          default=os.path.join(COCO_DIR, 'annotations/stuff_val2017.json'))
 parser.add_argument('--instance_whitelist', default=None, type=str_tuple)
 parser.add_argument('--stuff_whitelist', default=None, type=str_tuple)
 parser.add_argument('--coco_include_other', default=False, type=bool_flag)
 parser.add_argument('--min_object_size', default=0.02, type=float)
-parser.add_argument('--min_objects_per_image', default=1, type=int)
+parser.add_argument('--min_objects_per_image', default=3, type=int)
 parser.add_argument('--coco_stuff_only', default=True, type=bool_flag)
 
 # Generator options
@@ -235,7 +231,7 @@ def build_coco_sg_dsets(args):
   dset_kwargs = {
     'image_dir': args.coco_train_image_dir,
     'instances_json': args.coco_train_instances_json,
-    'sg_json': args.coco_train_sg_json,
+    'sg_json': args.coco_sg_json,
     'image_size': args.image_size,
     'mask_size': args.mask_size,
     'max_samples': args.num_train_samples,
@@ -254,12 +250,11 @@ def build_coco_sg_dsets(args):
 
   dset_kwargs['image_dir'] = args.coco_val_image_dir
   dset_kwargs['instances_json'] = args.coco_val_instances_json
-  dset_kwargs['sg_json'] = args.coco_val_sg_json
   dset_kwargs['stuff_json'] = args.coco_val_stuff_json
   dset_kwargs['max_samples'] = args.num_val_samples
   val_dset = CocoSGDataset(**dset_kwargs)
 
-  # assert train_dset.vocab == val_dset.vocab
+  assert train_dset.vocab == val_dset.vocab
   vocab = json.loads(json.dumps(train_dset.vocab))
 
   return vocab, train_dset, val_dset

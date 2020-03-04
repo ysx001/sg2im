@@ -8,6 +8,12 @@ python run_model.py \
   --scene_graphs scene_graphs/test_sheep.json \
   --output_dir outputs
 
+python run_model.py \
+  --checkpoint sg2im-models/vg128.pt \
+  --scene_graphs test_sg.json \
+  --output_dir test_output
+
+--checkpoint sg2im-models/vg128.pt 
 object_idx_to_name
 ['__image__', 'window', 'tree', 'man', 'shirt', 'wall', 'person', 'building', 'ground', 'sign', 'light', 'sky', 'head', 'leaf', 'leg', 'hand', 'pole', 'grass', 'hair', 'car', 'woman', 'cloud', 'ear', 'eye', 'line', 'table', 'shoe', 'people', 'door', 'shadow', 'wheel', 'letter', 'pant', 'flower', 'water', 'chair', 'fence', 'floor', 'handle', 'nose', 'arm', 'plate', 'stripe', 'rock', 'jacket', 'hat', 'tail', 'foot', 'face', 'road', 'tile', 'number', 'sidewalk', 'short', 'spot', 'bag', 'snow', 'bush', 'boy', 'helmet', 'street', 'field', 'bottle', 'glass', 'tire', 'logo', 'background', 'roof', 'post', 'branch', 'boat', 'plant', 'umbrella', 'brick', 'picture', 'girl', 'button', 'mouth', 'track', 'part', 'bird', 'food', 'box', 'banana', 'dirt', 'cap', 'jean', 'glasses', 'bench', 'mirror', 'book', 'pillow', 'top', 'wave', 'shelf', 'clock', 'glove', 'headlight', 'bowl', 'trunk', 'bus', 'neck', 'edge', 'train', 'reflection', 'horse', 'paper', 'writing', 'kite', 'flag', 'seat', 'house', 'wing', 'board', 'lamp', 'cup', 'elephant', 'cabinet', 'coat', 'mountain', 'giraffe', 'sock', 'cow', 'counter', 'hill', 'word', 'finger', 'dog', 'wire', 'sheep', 'zebra', 'ski', 'ball', 'frame', 'back', 'bike', 'truck', 'animal', 'design', 'ceiling', 'sunglass', 'sand', 'skateboard', 'motorcycle', 'curtain', 'container', 'windshield', 'cat', 'towel', 'beach', 'knob', 'boot', 'bed', 'sink', 'paw', 'surfboard', 'horn', 'pizza', 'wood', 'bear', 'stone', 'orange', 'engine', 'photo', 'hole', 'child', 'railing', 'player', 'stand', 'ocean', 'lady', 'vehicle', 'sticker', 'pot', 'apple', 'basket', 'plane', 'key', 'tie']
 
@@ -19,3 +25,57 @@ pred_idx_to_name
 ['__in_image__', 'has', 'covering', 'next to', 'above', 'belonging to', 'and', 'have', 'beside', 'behind', 'by', 'laying on', 'hanging on', 'eating', 'under', 'for', 'on side of', 'standing in', 'with', 'standing on', 'below', 'of', 'against', 'attached to', 'parked on', 'holding', 'on top of', 'carrying', 'at', 'on', 'wearing', 'in front of', 'looking at', 'wears', 'sitting in', 'near', 'over', 'sitting on', 'in', 'inside', 'walking on', 'along', 'made of', 'riding', 'covered in', 'around']
 
 Found 22132 relationship types
+
+A cat is sitting on the windshield of the car parked on grass under sky with a cloud.
+A bird is eating rock on a floor next to a fence under the sky.
+An apple, an orange and a banana are in a baskest on the table.
+A building on a street with a window and a flag and a man is riding motorcycle besides the building.
+A nose is on a helmet on a hill of boats.
+A photo of a woman eating food is sitting on a table on a beach.
+A book is made of rock on a table with zebra next to it inside of a ocean.
+A kite is next to a coat on a train over the shadow of the lamp.
+A tree is besides a window with a sign with a boat next to it.
+A giraffe is standing on a cloud attached to elephant.
+A person is building a trunk next to a bus on the water.
+A bear is eating pizza on a motorcycle on the road by the sidewalk with stripes.
+A man with a helmet stands on rocks by the ocean.
+Two girls wearing sunglasses walks on the sidewalk.
+Inside the window of the house, one apple and two oranges sit in the baskest.
+A group of players are sitting in the train and eating food.
+A man with a head, two ears, one nose, but one eye is looking at the mirrow.
+A dog wearing glasses stand in front on an elephant.
+The bird on top of the building is looking at the sky.
+There are two boys, one riding a cow, the other boy holding a sheep.
+Cloud on the ocean.
+Snow covers the hill, and on top of the hill, a girl is skiing with a skateboard.
+Next to the bush, a giraffe is eating the leaf and branch.
+Above the ocean, a child is riding a horse.
+There is one wheel around the car, which belongs to the trunk against the wall.
+A man wearing jeans and shirt is writing on the paper.
+The bird on the table has three eyes.
+Bisdes the cabinet, a sheep is laying on the bed.
+Behind the bottle, a book is eating paper in the plate.
+Two tires laying on the road.
+The picture hanging on the wall has a clock and horn inside.
+A cat on side of the girl is eating bananas.
+A lady sit on the rock, for the flower Under the stone.
+A dog stand in the sidewalk.
+A bear with a lamp is looking at the pot against the wall.
+The boy standing on the motorcycle is looking at mountain.
+Below the bed, there a girl is eating food.
+There is lots of dust on the floor of the building.
+The photo is attached to the wood.
+One truck parked on the street has two handles.
+A bird holding a flower is sitting at the neck of a boy.
+On the mountain, there is a child wearing boots.
+The truck carries one sheep, and on top of that, there is one zerbra.
+Over the ocean, a bear is riding a boat.
+A rock is laying on the ground with a sign besides it under the sky.
+A man is sitting on a rock with flowers around him under sky with cloud.
+A cat is hanging on to a sheep standing on a roof covered in snow.
+A banana is on a mirror next to a horse in front of mountain under the sky.
+A giraffe is eating a horse next to a motorcycle parked on the sidewalk.
+A dog is riding a skateboard standing on the road behind the flags.
+A apple and a banana in inside a basket on a table next to a sink.
+
+

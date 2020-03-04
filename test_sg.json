@@ -1,0 +1,574 @@
+[
+    {
+        "relationships": [
+            [
+                0,
+                "sitting on",
+                1
+            ],
+            [
+                1,
+                "of",
+                2
+            ],
+            [
+                2,
+                "parked on",
+                3
+            ],
+            [
+                2,
+                "under",
+                4
+            ],
+            [
+                2,
+                "with",
+                5
+            ]
+        ],
+        "phrase": "A cat is sitting on the windshield of the car parked on grass under sky with a cloud.",
+        "objects": [
+            "cat",
+            "windshield",
+            "car",
+            "grass",
+            "sky",
+            "cloud"
+        ],
+        "id": 0
+    },
+    {
+        "relationships": [
+            [
+                0,
+                "eating",
+                3
+            ],
+            [
+                0,
+                "next to",
+                3
+            ],
+            [
+                0,
+                "under",
+                4
+            ],
+            [
+                1,
+                "on",
+                2
+            ]
+        ],
+        "phrase": "A bird is eating rock on a floor next to a fence under the sky.",
+        "objects": [
+            "bird",
+            "rock",
+            "floor",
+            "fence",
+            "sky"
+        ],
+        "id": 1
+    },
+    {
+        "relationships": [
+            [
+                0,
+                "in",
+                3
+            ],
+            [
+                1,
+                "in",
+                3
+            ],
+            [
+                2,
+                "in",
+                3
+            ],
+            [
+                3,
+                "on",
+                4
+            ]
+        ],
+        "phrase": "An apple, an orange and a banana are in a basket on the table.",
+        "objects": [
+            "apple",
+            "orange",
+            "banana",
+            "basket",
+            "table"
+        ],
+        "id": 2
+    },
+    {
+        "relationships": [
+            [
+                0,
+                "on",
+                1
+            ],
+            [
+                0,
+                "on",
+                3
+            ],
+            [
+                0,
+                "riding",
+                4
+            ],
+            [
+                1,
+                "with",
+                2
+            ],
+            [
+                4,
+                "beside",
+                5
+            ]
+        ],
+        "phrase": "A building on a street with a window and a flag and a man is riding motorcycle besides the building.",
+        "objects": [
+            "building",
+            "street",
+            "window",
+            "flag",
+            "motorcycle",
+            "building"
+        ],
+        "id": 3
+    },
+    {
+        "relationships": [
+            [
+                0,
+                "on",
+                1
+            ],
+            [
+                1,
+                "on",
+                2
+            ],
+            [
+                2,
+                "of",
+                3
+            ]
+        ],
+        "phrase": "A nose is on a helmet on a hill of boats.",
+        "objects": [
+            "nose",
+            "helmet",
+            "hill",
+            "boat"
+        ],
+        "id": 4
+    },
+    {
+        "relationships": [
+            [
+                0,
+                "of",
+                1
+            ],
+            [
+                0,
+                "sitting on",
+                2
+            ],
+            [
+                2,
+                "on",
+                3
+            ]
+        ],
+        "phrase": "A photo of a woman eating food is sitting on a table on a beach.",
+        "objects": [
+            "photo",
+            "woman",
+            "table",
+            "beach"
+        ],
+        "id": 5
+    },
+    {
+        "relationships": [
+            [
+                0,
+                "of",
+                1
+            ],
+            [
+                1,
+                "on",
+                2
+            ],
+            [
+                2,
+                "with",
+                3
+            ]
+        ],
+        "phrase": "A book is made of rock on a table with zebra next to it inside of a ocean.",
+        "objects": [
+            "book",
+            "rock",
+            "table",
+            "zebra",
+            "ocean"
+        ],
+        "id": 6
+    },
+    {
+        "relationships": [
+            [
+                0,
+                "next to",
+                1
+            ],
+            [
+                1,
+                "on",
+                2
+            ],
+            [
+                2,
+                "over",
+                3
+            ],
+            [
+                3,
+                "of",
+                4
+            ]
+        ],
+        "phrase": "A kite is next to a coat on a train over the shadow of the lamp.",
+        "objects": [
+            "kite",
+            "coat",
+            "train",
+            "shadow",
+            "lamp"
+        ],
+        "id": 7
+    },
+    {
+        "relationships": [
+            [
+                0,
+                "beside",
+                1
+            ],
+            [
+                1,
+                "next to",
+                1
+            ],
+            [
+                1,
+                "with",
+                2
+            ],
+            [
+                2,
+                "with",
+                3
+            ]
+        ],
+        "phrase": "A tree is besides a window with a sign with a boat next to it.",
+        "objects": [
+            "tree",
+            "window",
+            "sign",
+            "boat"
+        ],
+        "id": 8
+    },
+    {
+        "relationships": [
+            [
+                0,
+                "standing on",
+                1
+            ],
+            [
+                1,
+                "attached to",
+                2
+            ]
+        ],
+        "phrase": "A giraffe is standing on a cloud attached to elephant.",
+        "objects": [
+            "giraffe",
+            "cloud",
+            "elephant"
+        ],
+        "id": 9
+    },
+    {
+        "relationships": [
+            [
+                0,
+                "eating",
+                1
+            ],
+            [
+                0,
+                "on",
+                2
+            ],
+            [
+                0,
+                "by",
+                4
+            ],
+            [
+                2,
+                "on",
+                3
+            ],
+            [
+                4,
+                "with",
+                5
+            ]
+        ],
+        "phrase": "A bear is eating pizza on a motorcycle on the road by the sidewalk with stripes.",
+        "objects": [
+            "bear",
+            "pizza",
+            "motorcycle",
+            "road",
+            "sidewalk",
+            "stripe"
+        ],
+        "id": 11
+    },
+    {
+        "relationships": [
+            [
+                0,
+                "with",
+                1
+            ],
+            [
+                0,
+                "standing on",
+                2
+            ],
+            [
+                0,
+                "by",
+                3
+            ]
+        ],
+        "phrase": "A man with a helmet stands on rocks by the ocean.",
+        "objects": [
+            "man",
+            "helmet",
+            "rock",
+            "ocean"
+        ],
+        "id": 12
+    },
+    {
+        "relationships": [
+            [
+                0,
+                "wearing",
+                2
+            ],
+            [
+                0,
+                "walking on",
+                3
+            ],
+            [
+                1,
+                "wearing",
+                2
+            ],
+            [
+                1,
+                "walking on",
+                3
+            ]
+        ],
+        "phrase": "Two girls wearing sunglasses walks on the sidewalk.",
+        "objects": [
+            "girl",
+            "girl",
+            "sunglass",
+            "sidewalk"
+        ],
+        "id": 13
+    },
+    {
+        "relationships": [
+            [
+                0,
+                "of",
+                1
+            ],
+            [
+                2,
+                "inside",
+                0
+            ],
+            [
+                2,
+                "sitting in",
+                5
+            ],
+            [
+                3,
+                "inside",
+                0
+            ],
+            [
+                3,
+                "sitting in",
+                5
+            ],
+            [
+                4,
+                "inside",
+                0
+            ],
+            [
+                4,
+                "sitting in",
+                5
+            ]
+        ],
+        "phrase": "Inside the window of the house, one apple and two oranges sit in the basket.",
+        "objects": [
+            "window",
+            "house",
+            "apple",
+            "orange",
+            "orange",
+            "basket"
+        ],
+        "id": 14
+    },
+    {
+        "relationships": [
+            [
+                0,
+                "sitting in",
+                1
+            ],
+            [
+                0,
+                "eating",
+                2
+            ]
+        ],
+        "phrase": "A group of players are sitting in the train and eating food.",
+        "objects": [
+            "player",
+            "train",
+            "food"
+        ],
+        "id": 15
+    },
+    {
+        "relationships": [
+            [
+                0,
+                "with",
+                1
+            ],
+            [
+                0,
+                "with",
+                2
+            ],
+            [
+                0,
+                "with",
+                3
+            ],
+            [
+                0,
+                "with",
+                4
+            ],
+            [
+                0,
+                "with",
+                5
+            ],
+            [
+                0,
+                "looking at",
+                6
+            ]
+        ],
+        "phrase": "A man with a head, two ears, one nose, but one eye is looking at the mirror.",
+        "objects": [
+            "man",
+            "head",
+            "ear",
+            "ear",
+            "nose",
+            "eye",
+            "mirror"
+        ],
+        "id": 16
+    },
+    {
+        "relationships": [
+            [
+                0,
+                "wearing",
+                1
+            ],
+            [
+                0,
+                "standing in",
+                2
+            ],
+            [
+                0,
+                "in front of",
+                2
+            ]
+        ],
+        "phrase": "A dog wearing glasses stand in front on an elephant.",
+        "objects": [
+            "dog",
+            "glass",
+            "elephant"
+        ],
+        "id": 17
+    },
+    {
+        "relationships": [
+            [
+                0,
+                "on top of",
+                1
+            ],
+            [
+                0,
+                "looking at",
+                2
+            ]
+        ],
+        "phrase": "The bird on top of the building is looking at the sky.",
+        "objects": [
+            "bird",
+            "building",
+            "sky"
+        ],
+        "id": 18
+    }
+]

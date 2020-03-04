@@ -82,10 +82,15 @@ class CocoSGDataset(Dataset):
     self.include_relationships = include_relationships
     self.set_image_size(image_size)
 
+    # for 5 different captions
+    suffix = ['a', 'b', 'c', 'd', 'e']
+
+
     with open(instances_json, 'r') as f:
       instances_data = json.load(f)
 
     self.image_ids = []
+    self.original_image_ids = []
     self.image_id_to_filename = {}
     self.image_id_to_size = {}
     for image_data in instances_data['images']:
@@ -93,9 +98,13 @@ class CocoSGDataset(Dataset):
       filename = image_data['file_name']
       width = image_data['width']
       height = image_data['height']
-      self.image_ids.append(image_id)
+      self.original_image_ids.append(image_id)
       self.image_id_to_filename[image_id] = filename
       self.image_id_to_size[image_id] = (width, height)
+      for suf in self.suffix:
+        new_image_id = str(image_id) + suf
+        self.image_ids.append(new_image_id)
+        self.image_id_to_filename[new_image_id] = filename
 
     print("Total inital images %d" % (len(self.image_ids)))
 
@@ -137,10 +146,12 @@ class CocoSGDataset(Dataset):
       box_ok = box_area > min_object_size
       object_name = object_idx_to_name[object_data['category_id']]
       if box_ok:
-        self.image_id_to_objects_names[image_id].append(object_name)
-        self.image_id_to_objects[image_id].append(object_data)
-        self.image_id_to_objects_bbox[image_id][object_name] = object_data['bbox']
-        self.image_id_to_objects_seg[image_id][object_name] = object_data['segmentation']
+        for suf in suffix:
+          new_image_id = str(image_id) + suf
+          self.image_id_to_objects_names[new_image_id].append(object_name)
+          self.image_id_to_objects[new_image_id].append(object_data)
+          self.image_id_to_objects_bbox[new_image_id][object_name] = object_data['bbox']
+          self.image_id_to_objects_seg[new_image_id][object_name] = object_data['segmentation']
 
     # Add object data from instances
     self.image_id_to_sg_objects = defaultdict(list)
@@ -155,8 +166,10 @@ class CocoSGDataset(Dataset):
 
     for sg_obj in sg_data:
       image_id = sg_obj['image_id']
-      if image_id not in self.image_ids:
+      if image_id not in self.original_image_ids:
         continue
+
+      image_caption_id = self.find_available_caption_id(image_id)
 
       # add the objects to vocab
       sg_obj_list = []
@@ -167,10 +180,13 @@ class CocoSGDataset(Dataset):
         # add the matched coco object to names
         names.add(value)
         # add the matched coco object to image id
-        self.image_id_to_sg_objects[image_id].append(value)
+        self.image_id_to_sg_objects[image_caption_id].append(value)
         # add the matched sg object to sg_obj_list
         sg_obj_list.append(key)
       object_name_counter.update(names)
+      for obj in self.image_id_to_objects_names[image_caption_id]:
+        if obj not in self.image_id_to_sg_objects[image_caption_id]:
+          self.image_id_to_sg_objects[image_caption_id].append(obj)
   
       # add the predicates
       preds = set()
@@ -184,7 +200,7 @@ class CocoSGDataset(Dataset):
           newRel.append(rel[1])
           o_idx = rel[2]
           newRel.append(idx_map[o_idx])      
-          self.image_id_to_relationships[image_id].append(newRel)
+          self.image_id_to_relationships[image_caption_id].append(newRel)
       pred_counter.update(preds)
 
     object_names = ['__image__']
@@ -240,6 +256,14 @@ class CocoSGDataset(Dataset):
       sg_idx += 1
       
     return match, idx_map 
+
+  def find_available_caption_id(self, image_id):
+    # find the available image_caption_id
+    for suf in self.suffix:
+      new_caption_id = str(image_id) + suf
+      if new_caption_id not in self.caption_id_map[image_id]:
+        self.caption_id_map[image_id].append(new_caption_id)
+        return new_caption_id
 
   def set_image_size(self, image_size):
     print('called set_image_size', image_size)
@@ -390,7 +414,7 @@ class CocoSGDataset(Dataset):
     for rel in self.image_id_to_relationships[image_id]:
       s = int(rel[0])
       p = self.vocab['pred_name_to_idx'].get(rel[1], None)
-      o = int(rel[1])
+      o = int(rel[2])
       if s is not None and o is not None and p is not None:
         triples.append([s, p, o])
     
