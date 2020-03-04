@@ -176,7 +176,7 @@ class CocoSGDataset(Dataset):
       sg_obj_list = []
       names = set()
       match, idx_map = self.match_objs(sg_obj['objects'], \
-        self.image_id_to_objects_names[image_id])
+        self.image_id_to_objects_names[image_caption_id])
       for key, value in match.items():
         # add the matched coco object to names
         names.add(value)
