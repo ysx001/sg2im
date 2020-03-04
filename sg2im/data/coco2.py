@@ -163,6 +163,7 @@ class CocoSGDataset(Dataset):
     
     object_name_counter = Counter()
     pred_counter = Counter()
+    self.caption_id_map = defaultdict(list)
 
     for sg_obj in sg_data:
       image_id = sg_obj['image_id']
