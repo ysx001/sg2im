@@ -83,7 +83,7 @@ class CocoSGDataset(Dataset):
     self.set_image_size(image_size)
 
     # for 5 different captions
-    suffix = ['a', 'b', 'c', 'd', 'e']
+    self.suffix = ['a', 'b', 'c', 'd', 'e']
 
 
     with open(instances_json, 'r') as f:
