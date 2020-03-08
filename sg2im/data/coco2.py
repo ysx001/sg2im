@@ -90,10 +90,12 @@ class CocoSGDataset(Dataset):
     with open(instances_json, 'r') as f:
       instances_data = json.load(f)
 
-    error_imgs_file = "./error_imgids.txt"
+    print(instances_json)
+    
+    error_imgs_file = os.path.expanduser("/data/home/cs224n/sg2im/sg2im/data/error_imgids.txt")
     self.image_ids = read_error_img_ids(error_imgs_file)
     print('Read %d error images ids.' % (len(self.image_ids)))
-    
+
     self.image_ids = []
     self.original_image_ids = []
     self.image_id_to_filename = {}
