@@ -1,568 +1,225 @@
 Total inital images 591435
-motorcycle motorcycle
-292505a
+dog dog
+park bench bench
+178971a
 ==sg_objs
-['motorcycle', 'group', 'box']
+['man', 'magazine', 'park bench', 'dog']
 ==image_id_to_objects_names[image_id]
-['motorcycle', 'person', 'umbrella', 'umbrella']
+['dog', 'person', 'bench']
 ==sg_obj_list
-['motorcycle']
+['dog', 'park bench']
 ==image_id_to_sg_objects[image_id]
-['motorcycle', 'person', 'umbrella']
-[0, 'park to', 1]
-[1, 'of', 2]
-==image_id_to_relationships
-[]
-motorcycle motorcycle
-292505b
-==sg_objs
-['motorcycle', 'sidewalk', 'cafe']
-==image_id_to_objects_names[image_id]
-['motorcycle', 'person', 'umbrella', 'umbrella']
-==sg_obj_list
-['motorcycle']
-==image_id_to_sg_objects[image_id]
-['motorcycle', 'person', 'umbrella']
-[0, 'park on', 1]
-[1, 'near', 2]
-==image_id_to_relationships
-[]
-292505c
-==sg_objs
-['iron fence']
-==image_id_to_objects_names[image_id]
-['motorcycle', 'person', 'umbrella', 'umbrella']
-==sg_obj_list
-[]
-==image_id_to_sg_objects[image_id]
-['motorcycle', 'person', 'umbrella']
-==image_id_to_relationships
-[]
-motorcycle motorcycle
-292505d
-==sg_objs
-['motorcycle', 'area']
-==image_id_to_objects_names[image_id]
-['motorcycle', 'person', 'umbrella', 'umbrella']
-==sg_obj_list
-['motorcycle']
-==image_id_to_sg_objects[image_id]
-['motorcycle', 'person', 'umbrella']
-[0, 'park in front of', 1]
-==image_id_to_relationships
-[]
-police motorcycle motorcycle
-292505e
-==sg_objs
-['police motorcycle', 'fence', 'table']
-==image_id_to_objects_names[image_id]
-['motorcycle', 'person', 'umbrella', 'umbrella']
-==sg_obj_list
-['police motorcycle']
-==image_id_to_sg_objects[image_id]
-['motorcycle', 'person', 'umbrella']
-[0, 'park near', 1]
-[0, 'park near', 2]
-==image_id_to_relationships
-[]
-truck truck
-493610a
-==sg_objs
-['group', 'people', 'top', 'truck']
-==image_id_to_objects_names[image_id]
-['truck', 'person', 'person', 'bus', 'person']
-==sg_obj_list
-['truck']
-==image_id_to_sg_objects[image_id]
-['truck', 'person', 'bus']
-[0, 'of', 1]
-[0, 'cram into', 2]
-[0, 'cram on', 2]
-[2, 'of', 3]
-==image_id_to_relationships
-[]
-truck truck
-493610b
-==sg_objs
-['truck', 'people', 'dirt road']
-==image_id_to_objects_names[image_id]
-['truck', 'person', 'person', 'bus', 'person']
-==sg_obj_list
-['truck']
-==image_id_to_sg_objects[image_id]
-['truck', 'person', 'bus']
-[0, 'of', 1]
-[1, 'drive down', 2]
-==image_id_to_relationships
-[]
-truck truck
-493610c
-==sg_objs
-['truck']
-==image_id_to_objects_names[image_id]
-['truck', 'person', 'person', 'bus', 'person']
-==sg_obj_list
-['truck']
-==image_id_to_sg_objects[image_id]
-['truck', 'person', 'bus']
-==image_id_to_relationships
-[]
-493610d
-==sg_objs
-['van', 'back', 'passenger']
-==image_id_to_objects_names[image_id]
-['truck', 'person', 'person', 'bus', 'person']
-==sg_obj_list
-[]
-==image_id_to_sg_objects[image_id]
-['truck', 'person', 'bus']
-[0, 'with', 1]
-[0, 'carry', 2]
-[1, 'carry', 2]
-==image_id_to_relationships
-[]
-493610e
-==sg_objs
-['Truck', 'roof']
-==image_id_to_objects_names[image_id]
-['truck', 'person', 'person', 'bus', 'person']
-==sg_obj_list
-[]
-==image_id_to_sg_objects[image_id]
-['truck', 'person', 'bus']
-[0, 'on', 1]
-==image_id_to_relationships
-[]
-laptop laptop
-470112a
-==sg_objs
-['table', 'desk', 'laptop']
-==image_id_to_objects_names[image_id]
-['chair', 'laptop']
-==sg_obj_list
-['laptop']
-==image_id_to_sg_objects[image_id]
-['laptop', 'chair']
-[0, 'use as', 1]
-[0, 'use for', 2]
-==image_id_to_relationships
-[]
-chair chair
-470112b
-==sg_objs
-['chair', 'table', 'computer']
-==image_id_to_objects_names[image_id]
-['chair', 'laptop']
-==sg_obj_list
-['chair']
-==image_id_to_sg_objects[image_id]
-['chair', 'laptop']
-[0, 'sit in front of', 1]
-[0, 'sit with', 2]
-[2, 'on', 0]
-==image_id_to_relationships
-[]
-laptop laptop
-470112c
-==sg_objs
-['laptop']
-==image_id_to_objects_names[image_id]
-['chair', 'laptop']
-==sg_obj_list
-['laptop']
-==image_id_to_sg_objects[image_id]
-['laptop', 'chair']
-[0, 'on', 0]
-==image_id_to_relationships
-[[0, 'on', 0]]
-chair chair
-laptop laptop
-470112d
-==sg_objs
-['nothing', 'room', 'desk', 'laptop', 'chair']
-==image_id_to_objects_names[image_id]
-['chair', 'laptop']
-==sg_obj_list
-['chair', 'laptop']
-==image_id_to_sg_objects[image_id]
-['chair', 'laptop']
-[0, 'in', 1]
-[1, 'except', 2]
-[1, 'except', 3]
-[1, 'except', 4]
-==image_id_to_relationships
-[]
-470112e
-==sg_objs
-['computer', 'headphone', 'headphone', 'table', 'office']
-==image_id_to_objects_names[image_id]
-['chair', 'laptop']
-==sg_obj_list
-[]
-==image_id_to_sg_objects[image_id]
-['chair', 'laptop']
-[0, 'sit on', 3]
-[1, 'sit on', 3]
-[2, 'sit on', 3]
-[3, 'in', 4]
-==image_id_to_relationships
-[]
-broccoli broccoli
-80819a
-==sg_objs
-['plate', 'rice', 'broccoli', 'type', 'meat']
-==image_id_to_objects_names[image_id]
-['broccoli']
-==sg_obj_list
-['broccoli']
-==image_id_to_sg_objects[image_id]
-['broccoli']
-[0, 'with', 1]
-[0, 'with', 2]
-[0, 'with', 3]
-[0, 'of', 4]
-==image_id_to_relationships
-[]
-80819b
-==sg_objs
-['close-up', 'food', 'plate']
-==image_id_to_objects_names[image_id]
-['broccoli']
-==sg_obj_list
-[]
-==image_id_to_sg_objects[image_id]
-['broccoli']
-[0, 'of', 1]
+['dog', 'bench', 'person']
+[0, 'read', 1]
+[0, 'have', 3]
+[0, 'read with', 3]
 [1, 'on', 2]
 ==image_id_to_relationships
 []
-broccoli broccoli
-80819c
+dog dog
+park bench reading bench
+178971b
 ==sg_objs
-['side', 'broccoli']
+['man', 'park bench reading', 'dog']
 ==image_id_to_objects_names[image_id]
-['broccoli']
+['dog', 'person', 'bench']
 ==sg_obj_list
-['broccoli']
+['dog', 'park bench reading']
 ==image_id_to_sg_objects[image_id]
-['broccoli']
-[0, 'of', 1]
+['dog', 'bench', 'person']
+[0, 'sit on', 1]
+[0, 'have', 2]
+[0, 'sit with', 2]
 ==image_id_to_relationships
 []
-broccoli broccoli
-80819d
+dog dog
+park bench bench
+178971c
 ==sg_objs
-['plate', 'food', 'rice', 'broccoli', 'beef']
+['man', 'newspaper', 'park bench', 'dog']
 ==image_id_to_objects_names[image_id]
-['broccoli']
+['dog', 'person', 'bench']
 ==sg_obj_list
-['broccoli']
+['dog', 'park bench']
 ==image_id_to_sg_objects[image_id]
-['broccoli']
-[0, 'of', 1]
-[0, 'with', 2]
-[0, 'with', 3]
-[0, 'with', 4]
-==image_id_to_relationships
-[]
-80819e
-==sg_objs
-['rice', 'plate']
-==image_id_to_objects_names[image_id]
-['broccoli']
-==sg_obj_list
-[]
-==image_id_to_sg_objects[image_id]
-['broccoli']
-[0, 'on', 1]
-==image_id_to_relationships
-[]
-133225a
-==sg_objs
-['hotdog', 'macaroni', 'cheese', 'plate']
-==image_id_to_objects_names[image_id]
-['dining table', 'hot dog']
-==sg_obj_list
-[]
-==image_id_to_sg_objects[image_id]
-['dining table', 'hot dog']
-[0, 'cover with', 1]
-[0, 'cover with', 2]
-[0, 'sit on', 3]
-==image_id_to_relationships
-[]
-dog hot dog
-133225b
-==sg_objs
-['dog', 'bun', 'plate']
-==image_id_to_objects_names[image_id]
-['dining table', 'hot dog']
-==sg_obj_list
-['dog']
-==image_id_to_sg_objects[image_id]
-['hot dog', 'dining table']
-[0, 'on', 1]
-[0, 'on', 2]
-==image_id_to_relationships
-[]
-dog hot dog
-133225c
-==sg_objs
-['dog', 'macaroni', 'cheese', 'bun']
-==image_id_to_objects_names[image_id]
-['dining table', 'hot dog']
-==sg_obj_list
-['dog']
-==image_id_to_sg_objects[image_id]
-['hot dog', 'dining table']
-[0, 'smother in', 1]
-[0, 'smother in', 2]
-[0, 'smother on', 3]
-==image_id_to_relationships
-[]
-dog hot dog
-133225d
-==sg_objs
-['plate', 'dog', 'mac', 'cheese']
-==image_id_to_objects_names[image_id]
-['dining table', 'hot dog']
-==sg_obj_list
-['dog']
-==image_id_to_sg_objects[image_id]
-['hot dog', 'dining table']
-[0, 'with', 1]
-[0, 'top with', 2]
-[0, 'top with', 3]
-==image_id_to_relationships
-[]
-dog hot dog
-133225e
-==sg_objs
-['dog', 'plate', 'mac', 'cheese']
-==image_id_to_objects_names[image_id]
-['dining table', 'hot dog']
-==sg_obj_list
-['dog']
-==image_id_to_sg_objects[image_id]
-['hot dog', 'dining table']
-[0, 'on', 1]
-[0, 'cover with', 2]
-[0, 'cover with', 3]
-==image_id_to_relationships
-[]
-bed bed
-bedroom bed
-77137a
-==sg_objs
-['bedroom', 'wall', 'bed', 'dresser', 'lamp']
-==image_id_to_objects_names[image_id]
-['bed']
-==sg_obj_list
-['bed', 'bedroom']
-==image_id_to_sg_objects[image_id]
-['bed', 'bed']
-[0, 'with', 1]
-[0, 'with', 2]
-[0, 'with', 3]
-[0, 'with', 4]
+['dog', 'bench', 'person']
+[0, 'read', 1]
+[0, 'have', 3]
+[2, 'with', 3]
 ==image_id_to_relationships
 [[0, 'with', 1]]
-bed bed
-bedroom bed
-77137b
+dog dog
+bench bench
+178971d
 ==sg_objs
-['bed', 'window', 'bedroom']
+['man', 'bench', 'dog']
 ==image_id_to_objects_names[image_id]
-['bed']
+['dog', 'person', 'bench']
 ==sg_obj_list
-['bed', 'bedroom']
+['dog', 'bench']
 ==image_id_to_sg_objects[image_id]
-['bed', 'bed']
-[0, 'sit next to', 1]
-[0, 'sit in', 2]
-==image_id_to_relationships
-[[0, 'sit in', 1]]
-bed bed
-77137c
-==sg_objs
-['bed', 'room']
-==image_id_to_objects_names[image_id]
-['bed']
-==sg_obj_list
-['bed']
-==image_id_to_sg_objects[image_id]
-['bed']
-[0, 'in', 1]
+['dog', 'bench', 'person']
+[0, 'sit on', 1]
+[0, 'have', 2]
+[0, 'sit next to', 2]
 ==image_id_to_relationships
 []
-bedroom bed
-77137d
+dog dog
+bench bench
+178971e
 ==sg_objs
-['bedroom', 'item', 'room']
+['man', 'book', 'bench', 'dog']
 ==image_id_to_objects_names[image_id]
-['bed']
+['dog', 'person', 'bench']
 ==sg_obj_list
-['bedroom']
+['dog', 'bench']
 ==image_id_to_sg_objects[image_id]
-['bed']
+['dog', 'bench', 'person']
+[0, 'read', 1]
+[0, 'read on', 2]
+[2, 'with', 3]
+==image_id_to_relationships
+[[0, 'with', 1]]
+orange orange
+375882a
+==sg_objs
+['fruit', 'orange']
+==image_id_to_objects_names[image_id]
+['person', 'handbag', 'orange', 'orange', 'chair', 'umbrella', 'umbrella', 'dining table']
+==sg_obj_list
+['orange']
+==image_id_to_sg_objects[image_id]
+['orange', 'person', 'handbag', 'chair', 'umbrella', 'dining table']
+[0, 'stand with', 1]
+[1, 'on', 0]
+==image_id_to_relationships
+[]
+375882b
+==sg_objs
+['asian man', 'fruit', 'market']
+==image_id_to_objects_names[image_id]
+['person', 'handbag', 'orange', 'orange', 'chair', 'umbrella', 'umbrella', 'dining table']
+==sg_obj_list
+[]
+==image_id_to_sg_objects[image_id]
+['person', 'handbag', 'orange', 'chair', 'umbrella', 'dining table']
+[0, 'browse', 1]
 [1, 'in', 2]
 ==image_id_to_relationships
 []
-bed bed
-77137e
+375882c
 ==sg_objs
-['bed', 'hotel room']
+['fruit', 'vendor']
 ==image_id_to_objects_names[image_id]
-['bed']
+['person', 'handbag', 'orange', 'orange', 'chair', 'umbrella', 'umbrella', 'dining table']
 ==sg_obj_list
-['bed']
+[]
 ==image_id_to_sg_objects[image_id]
-['bed']
-[0, 'in', 1]
+['person', 'handbag', 'orange', 'chair', 'umbrella', 'dining table']
 ==image_id_to_relationships
 []
-381972a
+375882d
 ==sg_objs
-['curious', 'curious', 'home hallway', 'background', 'belongings']
+['man', 'outdoors', 'basket', 'fruit']
 ==image_id_to_objects_names[image_id]
-['cat', 'dining table']
+['person', 'handbag', 'orange', 'orange', 'chair', 'umbrella', 'umbrella', 'dining table']
 ==sg_obj_list
 []
 ==image_id_to_sg_objects[image_id]
-['cat', 'dining table']
-[0, 'cat in', 2]
-[0, 'cat with', 3]
-[1, 'cat in', 2]
-[1, 'cat with', 3]
-[3, 'of', 4]
+['person', 'handbag', 'orange', 'chair', 'umbrella', 'dining table']
+[0, 'stand', 1]
+[1, 'near', 2]
+[2, 'of', 3]
 ==image_id_to_relationships
 []
-cat cat
-381972b
+person person
+375882e
 ==sg_objs
-['passage', 'cat']
+['person', 'fruit', 'sale', 'market']
 ==image_id_to_objects_names[image_id]
-['cat', 'dining table']
+['person', 'handbag', 'orange', 'orange', 'chair', 'umbrella', 'umbrella', 'dining table']
 ==sg_obj_list
-['cat']
+['person']
 ==image_id_to_sg_objects[image_id]
-['cat', 'dining table']
+['person', 'handbag', 'orange', 'chair', 'umbrella', 'dining table']
+[0, 'look at', 1]
+[0, 'look at', 3]
+[1, 'for', 2]
 ==image_id_to_relationships
 []
-cat cat
-381972c
+231677a
 ==sg_objs
-['cat', 'cardboard box']
+['plate', 'piece', 'food', 'top']
 ==image_id_to_objects_names[image_id]
-['cat', 'dining table']
-==sg_obj_list
-['cat']
-==image_id_to_sg_objects[image_id]
-['cat', 'dining table']
-[0, 'wander around in front of', 1]
-==image_id_to_relationships
-[]
-cat cat
-381972d
-==sg_objs
-['image', 'cat', 'kitchen']
-==image_id_to_objects_names[image_id]
-['cat', 'dining table']
-==sg_obj_list
-['cat']
-==image_id_to_sg_objects[image_id]
-['cat', 'dining table']
-[0, 'of', 1]
-[1, 'walk in', 2]
-==image_id_to_relationships
-[]
-381972e
-==sg_objs
-['kitty', 'box']
-==image_id_to_objects_names[image_id]
-['cat', 'dining table']
+['dining table', 'cup', 'spoon', 'cake']
 ==sg_obj_list
 []
 ==image_id_to_sg_objects[image_id]
-['cat', 'dining table']
-[0, 'walk among', 1]
-==image_id_to_relationships
-[]
-table dining table
-408099a
-==sg_objs
-['table', 'kind', 'food', 'plate']
-==image_id_to_objects_names[image_id]
-['dining table', 'potted plant', 'chair', 'chair', 'chair']
-==sg_obj_list
-['table']
-==image_id_to_sg_objects[image_id]
-['dining table', 'potted plant', 'chair']
-[0, 'fill with', 1]
-[0, 'fill on', 3]
+['dining table', 'cup', 'spoon', 'cake']
+[0, 'of', 0]
+[0, 'with', 1]
+[0, 'on', 3]
 [1, 'of', 2]
 ==image_id_to_relationships
 []
-408099b
+cup cup
+231677b
 ==sg_objs
-['dinning table', 'buffet assortment', 'food item']
+['granola bar', 'plate sand', 'cup', 'gourmet coffee']
 ==image_id_to_objects_names[image_id]
-['dining table', 'potted plant', 'chair', 'chair', 'chair']
+['dining table', 'cup', 'spoon', 'cake']
 ==sg_obj_list
-[]
+['cup']
 ==image_id_to_sg_objects[image_id]
-['dining table', 'potted plant', 'chair']
-[0, 'with', 1]
+['cup', 'dining table', 'spoon', 'cake']
+[0, 'on', 1]
+[2, 'of', 3]
+==image_id_to_relationships
+[]
+cup cup
+231677c
+==sg_objs
+['Breakfast', 'muffing', 'cup', 'coffee']
+==image_id_to_objects_names[image_id]
+['dining table', 'cup', 'spoon', 'cake']
+==sg_obj_list
+['cup']
+==image_id_to_sg_objects[image_id]
+['cup', 'dining table', 'spoon', 'cake']
+[0, 'of', 1]
 [0, 'of', 2]
+[0, 'of', 3]
 ==image_id_to_relationships
 []
-table dining table
-408099c
+231677d
 ==sg_objs
-['table', 'plate', 'food']
+['Coffee', 'protein bar', 'coffee shop table']
 ==image_id_to_objects_names[image_id]
-['dining table', 'potted plant', 'chair', 'chair', 'chair']
-==sg_obj_list
-['table']
-==image_id_to_sg_objects[image_id]
-['dining table', 'potted plant', 'chair']
-[0, 'top with', 1]
-[1, 'of', 2]
-==image_id_to_relationships
-[]
-408099d
-==sg_objs
-['buffet length table', 'dish', 'food']
-==image_id_to_objects_names[image_id]
-['dining table', 'potted plant', 'chair', 'chair', 'chair']
+['dining table', 'cup', 'spoon', 'cake']
 ==sg_obj_list
 []
 ==image_id_to_sg_objects[image_id]
-['dining table', 'potted plant', 'chair']
-[0, 'cover in', 1]
-[1, 'of', 2]
+['dining table', 'cup', 'spoon', 'cake']
+[0, 'display at', 2]
+[1, 'display at', 2]
 ==image_id_to_relationships
 []
-table dining table
-408099e
+231677e
 ==sg_objs
-['buffet', 'food item', 'table']
+['plate', 'piece', 'fruit bar', 'coffee', 'wood table']
 ==image_id_to_objects_names[image_id]
-['dining table', 'potted plant', 'chair', 'chair', 'chair']
+['dining table', 'cup', 'spoon', 'cake']
 ==sg_obj_list
-['table']
-==image_id_to_sg_objects[image_id]
-['dining table', 'potted plant', 'chair']
-[0, 'of', 1]
-[0, 'set on', 2]
-==image_id_to_relationships
 []
-Found 10 object categories.
-After pruning, 15 images left.
-Found 10 relationship types
-===========get item========77137a
-[65, 65]
-2
-2
+==image_id_to_sg_objects[image_id]
+['dining table', 'cup', 'spoon', 'cake']
 [0, 'with', 1]
-[[tensor(0), 2, tensor(1)], [tensor(0), 2, tensor(1)], [0, 7, 1], [0, 0, 2], [1, 0, 2]]
+[0, 'on', 4]
+[1, 'of', 2]
+[1, 'of', 3]
+==image_id_to_relationships
+[]
+Found 6 object categories.
+After pruning, 591435 images left.
+Found 8 relationship types
+===========get item========178971a

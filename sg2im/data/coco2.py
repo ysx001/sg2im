@@ -220,6 +220,10 @@ class CocoSGDataset(Dataset):
     self.image_ids = new_image_ids
     print('After pruning, %d images left.' % (len(self.image_ids)))
 
+    error_imgs_file = "error_imgids.txt"
+    self.image_ids = read_error_img_ids(error_imgs_file)
+    print('Read %d error images ids.' % (len(self.image_ids)))
+
     pred_names =  [
       '__in_image__',
       'left of',
@@ -308,7 +312,7 @@ class CocoSGDataset(Dataset):
       means that (objs[i], p, objs[j]) is a triple.
     """
     image_id = self.image_ids[index]
-    print(image_id + str(image_id))
+    print(str(image_id))
     
     filename = self.image_id_to_filename[image_id]
     image_path = os.path.join(self.image_dir, filename)
@@ -488,4 +492,16 @@ def coco_sg_collate_fn(batch):
   out = (all_imgs, all_objs, all_boxes, all_masks, all_triples,
          all_obj_to_img, all_triple_to_img)
   return out
+
+def read_error_img_ids(error_imgs_file):
+  with open(error_imgs_file, 'r') as f:
+      img_ids = f.readlines() 
+  
+  new_img_ids = []
+  for id in img_ids:
+    len_id = len(id)
+    if (len_id > 2):
+      new_img_ids.append(id[0:len_id//2])
+  
+  return new_img_ids
 

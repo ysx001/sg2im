@@ -80,6 +80,8 @@ class GraphTripleConv(nn.Module):
     # Get current vectors for triples; shape is (T, 3 * Din)
     # Pass through net1 to get new triple vecs; shape is (T, 2 * H + Dout)
     cur_t_vecs = torch.cat([cur_s_vecs, pred_vecs, cur_o_vecs], dim=1)
+    print("cur_t_vecs")
+    print(cur_t_vecs)
     new_t_vecs = self.net1(cur_t_vecs)
 
     # Break apart into new s, p, and o vecs; s and o vecs have shape (T, H) and

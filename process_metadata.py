@@ -27,6 +27,9 @@ parser.add_argument('--instance_json', \
 parser.add_argument('--sg_json', \
     default=os.path.join(COCO_DIR, 'sg_train2017.json'))
 
+parser.add_argument('--error_img_ids', \
+    default="error_imgids.txt")
+
 def combine_json():
     result = []
     for i in range(26):
@@ -134,7 +137,8 @@ def read_coco(instance_json, sg_json):
 def read_images(instances_json, sg_json):
     # for 5 different captions
     suffix = ['a', 'b', 'c', 'd', 'e']
-    error = [77137, 292505, 408099, 80819, 381972, 493610, 133225, 470112]
+    # error = [77137, 292505, 408099, 80819, 381972, 493610, 133225, 470112]
+    error = [178971, 375882, 231677]
     error_image_ids = []
     for id in error:
       for suf in suffix:
@@ -505,12 +509,26 @@ def match_objs(sg_objs, coco_objs):
       
     return match, idx_map 
 
+def read_error_img_ids(error_imgs_file):
+  with open(error_imgs_file, 'r') as f:
+      img_ids = f.readlines() 
+  
+  new_img_ids = []
+  for id in img_ids:
+    len_id = len(id)
+    if (len_id > 2):
+      new_img_ids.append(id[0:len_id//2])
+  
+  return new_img_ids
+
+
 if __name__ == '__main__':
   args = parser.parse_args()
 #   read_coco(args.instance_json, args.sg_json)
 #   read_json(args.instance_json)
 #   combine_json()
-  read_images(args.instance_json, args.sg_json)
+  # read_images(args.instance_json, args.sg_json)
+  read_error_img_ids(args.error_img_ids)
   # a = ['aaa', 'aaa', 'b', 'c', 'd']
   # b = ['aaa', 'c', 'd']
   # match, idx_map = match(a, b)
