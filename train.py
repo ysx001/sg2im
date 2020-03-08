@@ -79,10 +79,14 @@ parser.add_argument('--coco_val_image_dir',
          default=os.path.join(COCO_DIR, 'images/val2017'))
 parser.add_argument('--coco_train_instances_json',
          default=os.path.join(COCO_DIR, 'annotations/instances_train2017.json'))
+parser.add_argument('--coco_train_sg_json',
+         default=os.path.join(COCO_DIR, 'annotations/sg_train2017.json'))
 parser.add_argument('--coco_train_stuff_json',
          default=os.path.join(COCO_DIR, 'annotations/stuff_train2017.json'))
 parser.add_argument('--coco_val_instances_json',
          default=os.path.join(COCO_DIR, 'annotations/instances_val2017.json'))
+parser.add_argument('--coco_val_sg_json',
+         default=os.path.join(COCO_DIR, 'annotations/sg_val2017.json'))
 parser.add_argument('--coco_val_stuff_json',
          default=os.path.join(COCO_DIR, 'annotations/stuff_val2017.json'))
 parser.add_argument('--instance_whitelist', default=None, type=str_tuple)
@@ -91,6 +95,7 @@ parser.add_argument('--coco_include_other', default=False, type=bool_flag)
 parser.add_argument('--min_object_size', default=0.02, type=float)
 parser.add_argument('--min_objects_per_image', default=3, type=int)
 parser.add_argument('--coco_stuff_only', default=True, type=bool_flag)
+parser.add_argument('--use_sg_cache', default=False, type=bool_flag)
 
 # Generator options
 parser.add_argument('--mask_size', default=16, type=int) # Set this to 0 to use no masks
@@ -231,7 +236,7 @@ def build_coco_sg_dsets(args):
   dset_kwargs = {
     'image_dir': args.coco_train_image_dir,
     'instances_json': args.coco_train_instances_json,
-    'sg_json': args.coco_sg_json,
+    'sg_json': args.coco_train_sg_json,
     'image_size': args.image_size,
     'mask_size': args.mask_size,
     'max_samples': args.num_train_samples,
@@ -241,6 +246,7 @@ def build_coco_sg_dsets(args):
     'stuff_whitelist': args.stuff_whitelist,
     'include_other': args.coco_include_other,
     'include_relationships': args.include_relationships,
+    'use_sg_cache': args.use_sg_cache
   }
   train_dset = CocoSGDataset(**dset_kwargs)
   num_objs = train_dset.total_objects()
@@ -250,11 +256,12 @@ def build_coco_sg_dsets(args):
 
   dset_kwargs['image_dir'] = args.coco_val_image_dir
   dset_kwargs['instances_json'] = args.coco_val_instances_json
+  dset_kwargs['sg_json'] = args.coco_val_sg_json
   dset_kwargs['stuff_json'] = args.coco_val_stuff_json
   dset_kwargs['max_samples'] = args.num_val_samples
   val_dset = CocoSGDataset(**dset_kwargs)
 
-  assert train_dset.vocab == val_dset.vocab
+  # assert train_dset.vocab == val_dset.vocab
   vocab = json.loads(json.dumps(train_dset.vocab))
 
   return vocab, train_dset, val_dset
@@ -433,19 +440,19 @@ def calculate_model_losses(args, skip_pixel_loss, model, img, img_pred,
   total_loss = add_loss(total_loss, l1_pixel_loss, losses, 'L1_pixel_loss',
                         l1_pixel_weight)
 
-  # loss_bbox = F.mse_loss(bbox_pred, bbox)
-  # total_loss = add_loss(total_loss, loss_bbox, losses, 'bbox_pred',
-  #                       args.bbox_pred_loss_weight)
+  loss_bbox = F.mse_loss(bbox_pred, bbox)
+  total_loss = add_loss(total_loss, loss_bbox, losses, 'bbox_pred',
+                         args.bbox_pred_loss_weight)
 
   if args.predicate_pred_loss_weight > 0:
     loss_predicate = F.cross_entropy(predicate_scores, predicates)
     total_loss = add_loss(total_loss, loss_predicate, losses, 'predicate_pred',
                           args.predicate_pred_loss_weight)
 
-  # if args.mask_loss_weight > 0 and masks is not None and masks_pred is not None:
-  #   mask_loss = F.binary_cross_entropy(masks_pred, masks.float())
-  #   total_loss = add_loss(total_loss, mask_loss, losses, 'mask_loss',
-  #                         args.mask_loss_weight)
+  if args.mask_loss_weight > 0 and masks is not None and masks_pred is not None:
+    mask_loss = F.binary_cross_entropy(masks_pred, masks.float())
+    total_loss = add_loss(total_loss, mask_loss, losses, 'mask_loss',
+                          args.mask_loss_weight)
   return total_loss, losses
 
 
@@ -462,8 +469,7 @@ def main(args):
 
   optimizer = torch.optim.Adam(model.parameters(), lr=args.learning_rate)
 
-  obj_discriminator = None
-  # obj_discriminator, d_obj_kwargs = build_obj_discriminator(args, vocab)
+  obj_discriminator, d_obj_kwargs = build_obj_discriminator(args, vocab)
   img_discriminator, d_img_kwargs = build_img_discriminator(args, vocab)
   gan_g_loss, gan_d_loss = get_gan_losses(args.gan_loss_type)
 
@@ -512,6 +518,7 @@ def main(args):
       'args': args.__dict__,
       'vocab': vocab,
       'model_kwargs': model_kwargs,
+      'd_obj_kwargs': d_obj_kwargs,    #??
       'd_img_kwargs': d_img_kwargs,
       'losses_ts': [],
       'losses': defaultdict(list),
@@ -561,6 +568,12 @@ def main(args):
       with timeit('forward', args.timing):
         model_boxes = boxes
         model_masks = masks
+        #print('Yuxin check')
+        #print(objs.size())
+        #print(triples.size())
+        #print(obj_to_img.size())
+        #print(model_boxes.size())
+        #print(model_masks.size())
         model_out = model(objs, triples, obj_to_img,
                           boxes_gt=model_boxes, masks_gt=model_masks)
         imgs_pred, boxes_pred, masks_pred, predicate_scores = model_out

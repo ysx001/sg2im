@@ -28,7 +28,7 @@ parser.add_argument('--sg_json', \
     default=os.path.join(COCO_DIR, 'sg_train2017.json'))
 
 parser.add_argument('--error_img_ids', \
-    default="error_imgids.txt")
+    default="/home/sarah/cs224n/sg2im/sg2im/data/error_imgids.txt")
 
 def combine_json():
     result = []
@@ -164,7 +164,7 @@ def read_images(instances_json, sg_json):
         image_ids.append(new_image_id)
         image_id_to_filename[new_image_id] = filename
         
-
+    
     print("Total inital images %d" % (len(image_ids)))
 
     vocab = {
@@ -518,8 +518,47 @@ def read_error_img_ids(error_imgs_file):
     len_id = len(id)
     if (len_id > 2):
       new_img_ids.append(id[0:len_id//2])
-  
+  print(len(new_img_ids))
   return new_img_ids
+
+def get_error_img_filesnames(error_img_ids, instances_json):
+    suffix = ['a', 'b', 'c', 'd', 'e']
+
+    min_object_size=0.02
+    with open(instances_json, 'r') as f:
+      instances_data = json.load(f)
+
+    error_filenames = []
+    image_ids = []
+    original_image_ids = []
+    image_id_to_filename = {}
+    image_id_to_size = {}
+    for image_data in instances_data['images']:
+      image_id = image_data['id']
+      filename = image_data['file_name']
+      width = image_data['width']
+      height = image_data['height']
+      original_image_ids.append(image_id)
+      image_id_to_size[image_id] = (width, height)
+      for suf in suffix:
+        new_image_id = str(image_id) + suf
+        image_ids.append(new_image_id)
+        image_id_to_filename[new_image_id] = filename
+        if new_image_id in error_img_ids:
+          error_filenames.append(filename)
+
+    return error_filenames
+
+def write_download_script(filenames):
+  cmds = []
+  src = "cs224n@104.45.134.7:/data/home/cs224n/sg2im/datasets/coco/images/train2017/"
+  dst = "/home/sarah/cs224n/sg2im/datasets/coco/images/train2017/"
+  for filename in filenames:
+    print(filename)
+    cmds.append("\nscp" + " " + src + filename + " " + dst)
+  cmd_file = open('download_imgs.sh', 'w') 
+  cmd_file.writelines(cmds) 
+  cmd_file.close() 
 
 
 if __name__ == '__main__':
@@ -528,7 +567,9 @@ if __name__ == '__main__':
 #   read_json(args.instance_json)
 #   combine_json()
   # read_images(args.instance_json, args.sg_json)
-  read_error_img_ids(args.error_img_ids)
+  error_ids = read_error_img_ids(args.error_img_ids)
+  filenames = get_error_img_filesnames(error_ids, args.instance_json)
+  write_download_script(filenames)
   # a = ['aaa', 'aaa', 'b', 'c', 'd']
   # b = ['aaa', 'c', 'd']
   # match, idx_map = match(a, b)

@@ -35,7 +35,8 @@ class CocoSGDataset(Dataset):
                normalize_images=True, max_samples=None,
                include_relationships=True, min_object_size=0.02,
                min_objects_per_image=3, max_objects_per_image=8,
-               include_other=False, instance_whitelist=None, stuff_whitelist=None):
+               include_other=False, instance_whitelist=None, 
+               stuff_whitelist=None, use_sg_cache=False):
     """
     A PyTorch Dataset for loading Coco and Coco-Stuff annotations and converting
     them to scene graphs on the fly.
@@ -89,6 +90,10 @@ class CocoSGDataset(Dataset):
     with open(instances_json, 'r') as f:
       instances_data = json.load(f)
 
+    error_imgs_file = "./error_imgids.txt"
+    self.image_ids = read_error_img_ids(error_imgs_file)
+    print('Read %d error images ids.' % (len(self.image_ids)))
+    
     self.image_ids = []
     self.original_image_ids = []
     self.image_id_to_filename = {}
@@ -160,55 +165,101 @@ class CocoSGDataset(Dataset):
     sg_data = []
     with open(sg_json, 'r') as f:
       sg_data = json.load(f)
+
+    if use_sg_cache:
+      with open("image_id_to_sg_objects.json", 'r') as f:
+        self.image_id_to_sg_objects = json.load(f)
+      with open("image_id_to_relationships.json", 'r') as f:
+        self.image_id_to_relationships = json.load(f)
+      with open("pred_name_to_idx.json", "r") as f:
+        self.vocab['pred_name_to_idx'] = json.load(f)
+      with open("pred_idx_to_name.json", "w") as f:
+        self.vocab['pred_idx_to_name'] = json.load(f)
+    else:
+      object_name_counter = Counter()
+      pred_counter = Counter()
+      caption_id_map = defaultdict(list)
+
+      for sg_obj in sg_data:
+        image_id = sg_obj['image_id']
+        if image_id not in self.original_image_ids:
+          continue
+
+        image_caption_id = self.find_available_caption_id(caption_id_map, image_id)
+
+        # add the objects to vocab
+        sg_obj_list = []
+        names = set()
+        match, idx_map = self.match_objs(sg_obj['objects'], \
+          self.image_id_to_objects_names[image_caption_id])
+        for key, value in match.items():
+          # add the matched coco object to names
+          names.add(value)
+          # add the matched coco object to image id
+          self.image_id_to_sg_objects[image_caption_id].append(value)
+          # add the matched sg object to sg_obj_list
+          sg_obj_list.append(key)
+        object_name_counter.update(names)
+        for obj in self.image_id_to_objects_names[image_caption_id]:
+          if obj not in self.image_id_to_sg_objects[image_caption_id]:
+            self.image_id_to_sg_objects[image_caption_id].append(obj)
     
-    object_name_counter = Counter()
-    pred_counter = Counter()
-    self.caption_id_map = defaultdict(list)
+        # add the predicates
+        preds = set()
+        for rel in sg_obj['relationships']:
+          newRel = []
+          if (sg_obj['objects'][rel[0]] in sg_obj_list) \
+            and (sg_obj['objects'][rel[2]] in sg_obj_list):
+            preds.add(rel[1])
+            s_idx = rel[0]
+            newRel.append(idx_map[s_idx])
+            newRel.append(rel[1])
+            o_idx = rel[2]
+            newRel.append(idx_map[o_idx])      
+            self.image_id_to_relationships[image_caption_id].append(newRel)
+        pred_counter.update(preds)
+      
+      object_names = ['__image__']
+      for name, count in object_name_counter.most_common():
+        object_names.append(name)
+      print('Found %d object categories.' % (len(object_names)))
 
-    for sg_obj in sg_data:
-      image_id = sg_obj['image_id']
-      if image_id not in self.original_image_ids:
-        continue
+      pred_names =  [
+      '__in_image__',
+      'left of',
+      'right of',
+      'above',
+      'below',
+      'inside',
+      'surrounding',
+      ]
+      for pred, count in pred_counter.most_common():
+        pred_names.append(pred)
+      print('Found %d relationship types' % (len(pred_names)))
 
-      image_caption_id = self.find_available_caption_id(image_id)
+      pred_name_to_idx = {}
+      pred_idx_to_name = []
+      for idx, name in enumerate(pred_names):
+        pred_name_to_idx[name] = idx
+        pred_idx_to_name.append(name)
 
-      # add the objects to vocab
-      sg_obj_list = []
-      names = set()
-      match, idx_map = self.match_objs(sg_obj['objects'], \
-        self.image_id_to_objects_names[image_caption_id])
-      for key, value in match.items():
-        # add the matched coco object to names
-        names.add(value)
-        # add the matched coco object to image id
-        self.image_id_to_sg_objects[image_caption_id].append(value)
-        # add the matched sg object to sg_obj_list
-        sg_obj_list.append(key)
-      object_name_counter.update(names)
-      for obj in self.image_id_to_objects_names[image_caption_id]:
-        if obj not in self.image_id_to_sg_objects[image_caption_id]:
-          self.image_id_to_sg_objects[image_caption_id].append(obj)
-  
-      # add the predicates
-      preds = set()
-      for rel in sg_obj['relationships']:
-        newRel = []
-        if (sg_obj['objects'][rel[0]] in sg_obj_list) \
-          and (sg_obj['objects'][rel[2]] in sg_obj_list):
-          preds.add(rel[1])
-          s_idx = rel[0]
-          newRel.append(idx_map[s_idx])
-          newRel.append(rel[1])
-          o_idx = rel[2]
-          newRel.append(idx_map[o_idx])      
-          self.image_id_to_relationships[image_caption_id].append(newRel)
-      pred_counter.update(preds)
+      self.vocab['pred_name_to_idx'] = pred_name_to_idx
+      self.vocab['pred_idx_to_name'] = pred_idx_to_name
 
-    object_names = ['__image__']
-    for name, count in object_name_counter.most_common():
-      object_names.append(name)
-    print('Found %d object categories.' % (len(object_names)))
-    
+      # cache the scene graph results
+      with open("image_id_to_sg_objects.json", "w") as outfile:
+        json.dump(self.image_id_to_sg_objects, outfile)
+
+      with open("image_id_to_relationships.json", "w") as outfile:
+        json.dump(self.image_id_to_relationships, outfile)
+
+      with open("pred_name_to_idx.json", "w") as outfile:
+        json.dump(self.vocab['pred_name_to_idx'], outfile)
+
+      with open("pred_idx_to_name.json", "w") as outfile:
+        json.dump(self.vocab['pred_idx_to_name'], outfile)
+
+
     # Prune images that have too few or too many objects
     new_image_ids = []
     total_objs = 0
@@ -219,32 +270,6 @@ class CocoSGDataset(Dataset):
         new_image_ids.append(image_id)
     self.image_ids = new_image_ids
     print('After pruning, %d images left.' % (len(self.image_ids)))
-
-    error_imgs_file = "error_imgids.txt"
-    self.image_ids = read_error_img_ids(error_imgs_file)
-    print('Read %d error images ids.' % (len(self.image_ids)))
-
-    pred_names =  [
-      '__in_image__',
-      'left of',
-      'right of',
-      'above',
-      'below',
-      'inside',
-      'surrounding',
-    ]
-    for pred, count in pred_counter.most_common():
-      pred_names.append(pred)
-    print('Found %d relationship types' % (len(pred_names)))
-
-    pred_name_to_idx = {}
-    pred_idx_to_name = []
-    for idx, name in enumerate(pred_names):
-      pred_name_to_idx[name] = idx
-      pred_idx_to_name.append(name)
-
-    self.vocab['pred_name_to_idx'] = pred_name_to_idx
-    self.vocab['pred_idx_to_name'] = pred_idx_to_name
 
   def match_objs(self, sg_objs, coco_objs):
     match = {}
@@ -262,12 +287,12 @@ class CocoSGDataset(Dataset):
       
     return match, idx_map 
 
-  def find_available_caption_id(self, image_id):
+  def find_available_caption_id(self, caption_id_map, image_id):
     # find the available image_caption_id
     for suf in self.suffix:
       new_caption_id = str(image_id) + suf
-      if new_caption_id not in self.caption_id_map[image_id]:
-        self.caption_id_map[image_id].append(new_caption_id)
+      if new_caption_id not in caption_id_map[image_id]:
+        caption_id_map[image_id].append(new_caption_id)
         return new_caption_id
 
   def set_image_size(self, image_size):
