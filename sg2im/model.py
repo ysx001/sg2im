@@ -41,12 +41,9 @@ class Sg2ImModel(nn.Module):
     if len(kwargs) > 0:
       print('WARNING: Model got unexpected kwargs ', kwargs)
     
-    # for key, val in vocab.items():
-      # print(key)
-      # print(val)
     print(len(vocab["object_idx_to_name"]))
     print(len(vocab["pred_idx_to_name"]))
-    print(vocab["pred_idx_to_name"])
+    # print(vocab["pred_idx_to_name"])
 
     self.vocab = vocab
     self.image_size = image_size
