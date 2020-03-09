@@ -199,13 +199,15 @@ class CocoSGDataset(Dataset):
         names = set()
         match, idx_map = self.match_objs(sg_obj['objects'], \
           self.image_id_to_objects_names[image_caption_id])
-        for key, value in match.items():
-          # add the matched coco object to names
-          names.add(value)
-          # add the matched coco object to image id
-          self.image_id_to_sg_objects[image_caption_id].append(value)
-          # add the matched sg object to sg_obj_list
-          sg_obj_list.append(key)
+        for key in sg_obj['objects']:
+          if match.get(key, None) != None:
+            value = match[key]
+            # add the matched coco object to names
+            names.add(value)
+            # add the matched coco object to image id
+            self.image_id_to_sg_objects[image_caption_id].append(value)
+            # add the matched sg object to sg_obj_list
+            sg_obj_list.append(key)
         object_name_counter.update(names)
         for obj in self.image_id_to_objects_names[image_caption_id]:
           if obj not in self.image_id_to_sg_objects[image_caption_id]:
@@ -299,6 +301,8 @@ class CocoSGDataset(Dataset):
     new_sg_idx = 0
     for sg_obj in sg_objs:
       for coco_obj in coco_objs:
+        sg_obj = sg_obj.lower()
+        coco_obj = coco_obj.lower()
         if ((sg_obj in coco_obj) or (coco_obj in sg_obj)):
           match[sg_obj] = coco_obj
       if match.get(sg_obj, None) != None:

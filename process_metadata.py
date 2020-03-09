@@ -21,6 +21,13 @@ import copy
 
 COCO_DIR = 'datasets/coco/annotations/'
 
+ERROR_IMG_ID = "/home/sarah/cs224n/sg2im/sg2im/data/new_error_imgids.txt"
+
+ID_TO_SG_FP = "/home/sarah/cs224n/sg2im/image_id_to_sg_objects.json"
+ID_TO_REL_FP = "/home/sarah/cs224n/sg2im/image_id_to_relationships.json"
+PRD_TO_IDX_FP = "/home/sarah/cs224n/sg2im/pred_name_to_idx.json"
+IDX_TO_PRD_FP = "/home/sarah/cs224n/sg2im/pred_idx_to_name.json"
+
 parser = argparse.ArgumentParser()
 parser.add_argument('--instance_json', \
     default=os.path.join(COCO_DIR, 'instances_train2017.json'))
@@ -28,7 +35,7 @@ parser.add_argument('--sg_json', \
     default=os.path.join(COCO_DIR, 'sg_train2017.json'))
 
 parser.add_argument('--error_img_ids', \
-    default="/home/sarah/cs224n/sg2im/sg2im/data/error_imgids.txt")
+    default="/home/sarah/cs224n/sg2im/sg2im/data/new_error_imgids.txt")
 
 def combine_json():
     result = []
@@ -138,11 +145,12 @@ def read_images(instances_json, sg_json):
     # for 5 different captions
     suffix = ['a', 'b', 'c', 'd', 'e']
     # error = [77137, 292505, 408099, 80819, 381972, 493610, 133225, 470112]
-    error = [178971, 375882, 231677]
-    error_image_ids = []
-    for id in error:
-      for suf in suffix:
-        error_image_ids.append(str(id) + suf)
+    # error = [178971, 375882, 231677]
+    error = [245534, 354938]
+    # error_image_ids = []
+    # for id in error:
+    #   for suf in suffix:
+    #     error_image_ids.append(str(id) + suf)
 
     min_object_size=0.02
     with open(instances_json, 'r') as f:
@@ -212,8 +220,20 @@ def read_images(instances_json, sg_json):
           image_id_to_objects_bbox[new_image_id][object_name] = object_data['bbox']
           image_id_to_objects_seg[new_image_id][object_name] = object_data['segmentation']
 
+    # with open(ID_TO_SG_FP, 'r') as f:
+    #   image_id_to_sg_objects = json.load(f)
+    #   print("Read %d images to sg object from json" %(len(image_id_to_sg_objects)))
+    # with open(ID_TO_REL_FP, 'r') as f:
+    #   image_id_to_relationships = json.load(f)
+    #   print("Read %d images to relationships from json" %(len(image_id_to_relationships)))
+    # with open(PRD_TO_IDX_FP, "r") as f:
+    #   vocab['pred_name_to_idx'] = json.load(f)
+    #   print("Read %d pred name to idx from json" %(len(vocab['pred_name_to_idx'])))
+    # with open(IDX_TO_PRD_FP, "r") as f:
+    #   vocab['pred_idx_to_name'] = [item.rstrip() for item in f.readlines()]
+    #   print("Read %d pred idx to name from file" %(len(vocab['pred_idx_to_name'])))
 
-    # Add object data from instances
+     # Add object data from instances
     image_id_to_sg_objects = defaultdict(list)
     image_id_to_relationships = defaultdict(list)
 
@@ -235,14 +255,17 @@ def read_images(instances_json, sg_json):
       names = []
       match, idx_map = match_objs(sg_obj['objects'], \
         image_id_to_objects_names[image_caption_id])
-      for key, value in match.items():
-        # add the matched coco object to names
-        print(key, value)
-        names.append(value)
-        # add the matched coco object to image id
-        image_id_to_sg_objects[image_caption_id].append(value)
-        # add the matched sg object to sg_obj_list
-        sg_obj_list.append(key)
+
+      for key in sg_obj['objects']:
+        if match.get(key, None) != None:
+          # add the matched coco object to names
+          value = match[key]
+          print(key, value)
+          names.append(value)
+          # add the matched coco object to image id
+          image_id_to_sg_objects[image_caption_id].append(value)
+          # add the matched sg object to sg_obj_list
+          sg_obj_list.append(key)
       object_name_counter.update(names)
       for temp_name in image_id_to_objects_names[image_caption_id]:
         if temp_name not in image_id_to_sg_objects[image_caption_id]:
@@ -280,19 +303,10 @@ def read_images(instances_json, sg_json):
       object_names.append(name)
     print('Found %d object categories.' % (len(object_names)))
 
-    min_objects_per_image=3
-    max_objects_per_image=8
-    # Prune images that have too few or too many objects
-    new_image_ids = []
-    total_objs = 0
-    for image_id in image_ids:
-      num_objs = len(image_id_to_sg_objects[image_caption_id])
-      total_objs += num_objs
-      if min_objects_per_image <= num_objs <= max_objects_per_image:
-        new_image_ids.append(image_id)
-    image_ids = new_image_ids
-    print('After pruning, %d images left.' % (len(image_ids)))
-    
+    error_imgs_file = os.path.expanduser(ERROR_IMG_ID)
+    image_ids = read_error_img_ids(error_imgs_file)
+    print('Read %d error images ids.' % (len(image_ids)))
+
     pred_names =  [
     '__in_image__',
     'left of',
@@ -303,7 +317,8 @@ def read_images(instances_json, sg_json):
     'surrounding',
     ]
     for pred, count in pred_counter.most_common():
-      pred_names.append(pred)
+      if pred not in pred_names:
+          pred_names.append(pred)
     print('Found %d relationship types' % (len(pred_names)))
 
     pred_name_to_idx = {}
@@ -315,13 +330,31 @@ def read_images(instances_json, sg_json):
     vocab['pred_name_to_idx'] = pred_name_to_idx
     vocab['pred_idx_to_name'] = pred_idx_to_name
 
+
+    min_objects_per_image=3
+    max_objects_per_image=8
+    # Prune images that have too few or too many objects
+    new_image_ids = []
+    total_objs = 0
+    for image_id in image_ids:
+      num_objs = len(image_id_to_sg_objects[image_id])
+      total_objs += num_objs
+      if min_objects_per_image <= num_objs <= max_objects_per_image:
+        new_image_ids.append(image_id)
+    image_ids = new_image_ids
+    print('After pruning, %d images left.' % (len(image_ids)))
+  
     ##################################################################
     ########### get item #############################################
+    
+    for image_id in image_ids:
+      get_item(image_id, image_id_to_filename, image_id_to_sg_objects, image_id_to_objects_bbox, image_id_to_objects_seg, image_id_to_relationships, vocab)
+
+def get_item(image_id, image_id_to_filename, image_id_to_sg_objects, image_id_to_objects_bbox, image_id_to_objects_seg, image_id_to_relationships, vocab):
     image_size=(64, 64)
     mask_size=16
     image_dir = "datasets/coco/images/train2017"
-    image_id = error_image_ids[0]
-    print("===========get item========" + str(image_id))
+    print("===========get item======== " + str(image_id))
     transform = [Resize(image_size), T.ToTensor()]
     transform = T.Compose(transform)
     filename = image_id_to_filename[image_id]
@@ -334,6 +367,7 @@ def read_images(instances_json, sg_json):
     
     H, W = image_size
     objs, boxes, masks = [], [], []
+    print(image_id_to_sg_objects[image_id])
     for object_name in image_id_to_sg_objects[image_id]:
       objs.append(vocab['object_name_to_idx'][object_name])
       # bbox
@@ -431,7 +465,7 @@ def read_images(instances_json, sg_json):
       p = vocab['pred_name_to_idx'][p]
       triples.append([s, p, o])
 
-    for rel in image_id_to_relationships[image_id]:
+    for rel in image_id_to_relationships.get(image_id, []):
       print(rel)
       s = int(rel[0])
       p = vocab['pred_name_to_idx'].get(rel[1], None)
@@ -499,6 +533,8 @@ def match_objs(sg_objs, coco_objs):
     new_sg_idx = 0
     for sg_obj in sg_objs:
       for coco_obj in coco_objs:
+        sg_obj = sg_obj.lower()
+        coco_obj = coco_obj.lower()
         if ((sg_obj in coco_obj) or (coco_obj in sg_obj)):
           match[sg_obj] = coco_obj
           break
@@ -566,7 +602,7 @@ if __name__ == '__main__':
 #   read_coco(args.instance_json, args.sg_json)
 #   read_json(args.instance_json)
 #   combine_json()
-  # read_images(args.instance_json, args.sg_json)
+  read_images(args.instance_json, args.sg_json)
   # error_ids = read_error_img_ids(args.error_img_ids)
   # filenames = get_error_img_filesnames(error_ids, args.instance_json)
   # write_download_script(filenames)
@@ -583,13 +619,13 @@ if __name__ == '__main__':
   # print(len(image_id_to_sg_objects))
   # print(image_id_to_sg_objects["391895a"])
 
-  one_list = ['a', 'b', 'c', 'd']
-  with open("test.txt", 'w') as f:
-    f.writelines("%s\n" % place for place in one_list)
+  # one_list = ['a', 'b', 'c', 'd']
+  # with open("test.txt", 'w') as f:
+  #   f.writelines("%s\n" % place for place in one_list)
   
-  with open("test.txt", 'r') as f:
-    new_list = [item.rstrip() for item in f.readlines()]
-    print(new_list)
+  # with open("test.txt", 'r') as f:
+  #   new_list = [item.rstrip() for item in f.readlines()]
+  #   print(new_list)
   # with open(ID_TO_REL_FP, 'r') as f:
   #   self.image_id_to_relationships = json.load(f)
   # with open(PRD_TO_IDX_FP, "r") as f:

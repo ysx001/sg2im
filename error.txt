@@ -1,0 +1,193 @@
+/home/sarah/anaconda3/envs/sg2im/lib/python3.5/site-packages/skimage/transform/_warps.py:110: UserWarning: Anti-aliasing will be enabled by default in skimage 0.15 to avoid aliasing artifacts when down-sampling images.
+  warn("Anti-aliasing will be enabled by default in skimage 0.15 to "
+Total inital images 591435
+clock clock
+245534a
+==sg_objs
+['clock', 'side', 'building']
+==image_id_to_objects_names[image_id]
+['clock']
+==sg_obj_list
+['clock']
+==image_id_to_sg_objects[image_id]
+['clock']
+[1, 'of', 2]
+==image_id_to_relationships
+[]
+clock clock
+clock tower clock
+o'clock clock
+o'clock clock
+o'clock clock
+o'clock clock
+o'clock clock
+o'clock clock
+o'clock clock
+o'clock clock
+o'clock clock
+o'clock clock
+o'clock clock
+o'clock clock
+245534b
+==sg_objs
+['blue', 'clock', 'clock tower', "o'clock", "o'clock", "o'clock", "o'clock", "o'clock", "o'clock", "o'clock", "o'clock", "o'clock", "o'clock", "o'clock", "o'clock"]
+==image_id_to_objects_names[image_id]
+['clock']
+==sg_obj_list
+['clock', 'clock tower', "o'clock", "o'clock", "o'clock", "o'clock", "o'clock", "o'clock", "o'clock", "o'clock", "o'clock", "o'clock", "o'clock", "o'clock"]
+==image_id_to_sg_objects[image_id]
+['clock', 'clock', 'clock', 'clock', 'clock', 'clock', 'clock', 'clock', 'clock', 'clock', 'clock', 'clock', 'clock', 'clock']
+[1, 'in', 2]
+[1, 'show', 3]
+[1, 'show', 4]
+[1, 'show', 5]
+[1, 'show', 6]
+[1, 'show', 7]
+[1, 'show', 8]
+[1, 'show', 9]
+[1, 'show', 10]
+[1, 'show', 11]
+[1, 'show', 12]
+[1, 'show', 13]
+[1, 'show', 14]
+==image_id_to_relationships
+[[0, 'in', 1], [0, 'show', 2], [0, 'show', 3], [0, 'show', 4], [0, 'show', 5], [0, 'show', 6], [0, 'show', 7], [0, 'show', 8], [0, 'show', 9], [0, 'show', 10], [0, 'show', 11], [0, 'show', 12], [0, 'show', 13]]
+clock clock
+245534c
+==sg_objs
+['clock', 'time', 'noon']
+==image_id_to_objects_names[image_id]
+['clock']
+==sg_obj_list
+['clock']
+==image_id_to_sg_objects[image_id]
+['clock']
+[0, 'show', 1]
+[0, 'show at', 2]
+==image_id_to_relationships
+[]
+clock clock
+245534d
+==sg_objs
+['close', 'clock', 'tower']
+==image_id_to_objects_names[image_id]
+['clock']
+==sg_obj_list
+['clock']
+==image_id_to_sg_objects[image_id]
+['clock']
+[0, 'of', 1]
+[0, 'on', 2]
+==image_id_to_relationships
+[]
+clock clock
+245534e
+==sg_objs
+['brick tower', 'clock', 'it']
+==image_id_to_objects_names[image_id]
+['clock']
+==sg_obj_list
+['clock']
+==image_id_to_sg_objects[image_id]
+['clock']
+[0, 'with', 1]
+[1, 'on', 2]
+==image_id_to_relationships
+[]
+pizza pizza
+table dining table
+354938a
+==sg_objs
+['pizza', 'table', 'two']
+==image_id_to_objects_names[image_id]
+['dining table', 'pizza', 'bench', 'bench']
+==sg_obj_list
+['pizza', 'table']
+==image_id_to_sg_objects[image_id]
+['pizza', 'dining table', 'bench']
+[0, 'on', 1]
+[1, 'with', 2]
+==image_id_to_relationships
+[[0, 'on', 1]]
+pizza pizza
+pizza pizza
+354938b
+==sg_objs
+['tray', 'pizza', 'drink', 'drink', 'pizza']
+==image_id_to_objects_names[image_id]
+['dining table', 'pizza', 'bench', 'bench']
+==sg_obj_list
+['pizza', 'pizza']
+==image_id_to_sg_objects[image_id]
+['pizza', 'pizza', 'dining table', 'bench']
+[0, 'with', 1]
+[0, 'with', 2]
+[0, 'with', 3]
+[0, 'with', 4]
+==image_id_to_relationships
+[]
+354938c
+==sg_objs
+['THERE', 'PIZZA', 'THE TABLE', 'CUPS', 'DRINKS']
+==image_id_to_objects_names[image_id]
+['dining table', 'pizza', 'bench', 'bench']
+==sg_obj_list
+[]
+==image_id_to_sg_objects[image_id]
+['dining table', 'pizza', 'bench']
+[1, 'on', 2]
+[1, 'on', 3]
+[2, 'of', 4]
+==image_id_to_relationships
+[]
+table dining table
+cheese pizza pizza
+354938d
+==sg_objs
+['table', 'drink', 'cheese pizza']
+==image_id_to_objects_names[image_id]
+['dining table', 'pizza', 'bench', 'bench']
+==sg_obj_list
+['table', 'cheese pizza']
+==image_id_to_sg_objects[image_id]
+['dining table', 'pizza', 'bench']
+[0, 'on', 0]
+[0, 'with', 1]
+[0, 'with', 2]
+==image_id_to_relationships
+[[0, 'on', 0], [0, 'with', 1]]
+table dining table
+pizza pizza
+pizza pizza
+bench bench
+bench bench
+354938e
+==sg_objs
+['table', 'pizza', 'pizza', 'bench', 'bench']
+==image_id_to_objects_names[image_id]
+['dining table', 'pizza', 'bench', 'bench']
+==sg_obj_list
+['table', 'pizza', 'pizza', 'bench', 'bench']
+==image_id_to_sg_objects[image_id]
+['dining table', 'pizza', 'pizza', 'bench', 'bench']
+[0, 'top with', 1]
+[0, 'top with', 2]
+[0, 'surround by', 3]
+[0, 'surround by', 4]
+==image_id_to_relationships
+[[0, 'top with', 1], [0, 'top with', 2], [0, 'surround by', 3], [0, 'surround by', 4]]
+Found 5 object categories.
+2
+Read 2 error images ids.
+Found 13 relationship types
+After pruning, 1 images left.
+===========get item======== 354938e
+['dining table', 'pizza', 'pizza', 'bench', 'bench']
+[67, 59, 59, 15, 15]
+5
+5
+[0, 'top with', 1]
+[0, 'top with', 2]
+[0, 'surround by', 3]
+[0, 'surround by', 4]
+[[tensor(4), 1, tensor(0)], [tensor(3), 1, tensor(1)], [tensor(1), 2, tensor(2)], [tensor(3), 1, tensor(1)], [tensor(4), 2, tensor(3)], [0, 10, 1], [0, 10, 2], [0, 11, 3], [0, 11, 4], [0, 0, 5], [1, 0, 5], [2, 0, 5], [3, 0, 5], [4, 0, 5]]
