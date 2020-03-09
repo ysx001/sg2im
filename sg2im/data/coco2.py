@@ -167,7 +167,7 @@ class CocoSGDataset(Dataset):
     with open(sg_json, 'r') as f:
       sg_data = json.load(f)
 
-    if use_sg_cache:
+    if use_sg_cache and write_to_cache:
       with open(ID_TO_SG_FP, 'r') as f:
         self.image_id_to_sg_objects = json.load(f)
       with open(ID_TO_REL_FP, 'r') as f:
