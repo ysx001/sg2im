@@ -567,11 +567,20 @@ if __name__ == '__main__':
 #   read_json(args.instance_json)
 #   combine_json()
   # read_images(args.instance_json, args.sg_json)
-  error_ids = read_error_img_ids(args.error_img_ids)
-  filenames = get_error_img_filesnames(error_ids, args.instance_json)
-  write_download_script(filenames)
+  # error_ids = read_error_img_ids(args.error_img_ids)
+  # filenames = get_error_img_filesnames(error_ids, args.instance_json)
+  # write_download_script(filenames)
   # a = ['aaa', 'aaa', 'b', 'c', 'd']
   # b = ['aaa', 'c', 'd']
   # match, idx_map = match(a, b)
   # print(match)
   # print(idx_map)
+
+  with open("pred_idx_to_name.json", 'r') as f:
+    image_id_to_sg_objects = json.load(f)
+  # with open(ID_TO_REL_FP, 'r') as f:
+  #   self.image_id_to_relationships = json.load(f)
+  # with open(PRD_TO_IDX_FP, "r") as f:
+  #   self.vocab['pred_name_to_idx'] = json.load(f)
+  # with open(IDX_TO_PRD_FP, "w") as f:
+  #   self.vocab['pred_idx_to_name'] = json.load(f)

@@ -174,8 +174,6 @@ class CocoSGDataset(Dataset):
         self.image_id_to_relationships = json.load(f)
       with open(PRD_TO_IDX_FP, "r") as f:
         self.vocab['pred_name_to_idx'] = json.load(f)
-      with open(IDX_TO_PRD_FP, "w") as f:
-        self.vocab['pred_idx_to_name'] = json.load(f)
     else:
       object_name_counter = Counter()
       pred_counter = Counter()
@@ -243,7 +241,7 @@ class CocoSGDataset(Dataset):
       for idx, name in enumerate(pred_names):
         pred_name_to_idx[name] = idx
         pred_idx_to_name.append(name)
-
+      
       self.vocab['pred_name_to_idx'] = pred_name_to_idx
       self.vocab['pred_idx_to_name'] = pred_idx_to_name
 
@@ -258,7 +256,7 @@ class CocoSGDataset(Dataset):
         json.dump(self.vocab['pred_name_to_idx'], outfile)
 
       with open(IDX_TO_PRD_FP, "w") as outfile:
-        json.dump(self.vocab['pred_idx_to_name'], outfile)
+        outfile.writelines(self.vocab['pred_idx_to_name'])
 
 
     # Prune images that have too few or too many objects
