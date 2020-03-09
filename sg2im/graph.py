@@ -79,11 +79,13 @@ class GraphTripleConv(nn.Module):
 
     print("cur_s_vecs")
     print(cur_s_vecs.size())
+    print(cur_s_vecs)
     print("pred_vecs")
     print(pred_vecs.size())
+    print(pred_vecs)
     print("cur_o_vecs")
     print(cur_o_vecs.size())
-    # print(cur_s_vecs)
+    print(cur_o_vecs)
     
     # Get current vectors for triples; shape is (T, 3 * Din)
     # Pass through net1 to get new triple vecs; shape is (T, 2 * H + Dout)
