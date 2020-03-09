@@ -88,19 +88,19 @@ class GraphTripleConv(nn.Module):
     cur_s_vecs = obj_vecs[s_idx]
     cur_o_vecs = obj_vecs[o_idx]
 
-    print("cur_s_vecs")
-    print(cur_s_vecs.size())
-    print(cur_s_vecs)
+    # print("cur_s_vecs")
+    # print(cur_s_vecs.size())
+    # print(cur_s_vecs)
     print("pred_vecs")
     print(pred_vecs.size())
     print(pred_vecs)
-    print("cur_o_vecs")
-    print(cur_o_vecs.size())
-    print(cur_o_vecs)
+    # print("cur_o_vecs")
+    # print(cur_o_vecs.size())
+    # print(cur_o_vecs)
     
     # Get current vectors for triples; shape is (T, 3 * Din)
     # Pass through net1 to get new triple vecs; shape is (T, 2 * H + Dout)
-    cur_t_vecs = torch.cat([cur_s_vecs, pred_vecs, cur_o_vecs], dim=1)
+    cur_t_vecs = torch.cat([obj_vecs[s_idx], pred_vecs, obj_vecs[o_idx]], dim=1)
     print("cur_t_vecs")
     print(cur_t_vecs.size())
     print(cur_t_vecs)
