@@ -248,12 +248,15 @@ class CocoSGDataset(Dataset):
       # cache the scene graph results
       with open(ID_TO_SG_FP, "w") as outfile:
         json.dump(self.image_id_to_sg_objects, outfile)
+        print("Dumped %d images to sg object to json" %(len(self.image_id_to_sg_objects)))
 
       with open(ID_TO_REL_FP, "w") as outfile:
         json.dump(self.image_id_to_relationships, outfile)
+        print("Dumped %d images to relationships to json" %(len(self.image_id_to_relationships)))
 
       with open(PRD_TO_IDX_FP, "w") as outfile:
         json.dump(self.vocab['pred_name_to_idx'], outfile)
+        print("Dumped %d pred name to idx to json" %(len(self.vocab['pred_name_to_idx'])))
 
       with open(IDX_TO_PRD_FP, "w") as outfile:
         outfile.writelines(self.vocab['pred_idx_to_name'])
