@@ -279,9 +279,9 @@ class CocoSGDataset(Dataset):
           print("Dumped %d pred idx to name to file" %(len(self.vocab['pred_idx_to_name'])))
 
 
-    error_imgs_file = os.path.expanduser(ERROR_IMG_ID)
-    self.image_ids = read_error_img_ids(error_imgs_file)
-    print('Read %d error images ids.' % (len(self.image_ids)))
+    # error_imgs_file = os.path.expanduser(ERROR_IMG_ID)
+    # self.image_ids = read_error_img_ids(error_imgs_file)
+    # print('Read %d error images ids.' % (len(self.image_ids)))
 
     # Prune images that have too few or too many objects
     new_image_ids = []
