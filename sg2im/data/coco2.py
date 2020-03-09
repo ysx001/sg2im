@@ -28,6 +28,11 @@ import pycocotools.mask as mask_utils
 
 from .utils import imagenet_preprocess, Resize
 
+ID_TO_SG_FP = "/home/cs224n/sg2im/image_id_to_sg_objects.json"
+ID_TO_REL_FP = "/home/cs224n/sg2im/image_id_to_relationships.json"
+PRD_TO_IDX_FP = "/home/cs224n/sg2im/pred_name_to_idx.json"
+IDX_TO_PRD_FP = "/home/cs224n/sg2im/pred_idx_to_name.json"
+
 
 class CocoSGDataset(Dataset):
   def __init__(self, image_dir, instances_json, sg_json, stuff_json=None,
@@ -163,13 +168,13 @@ class CocoSGDataset(Dataset):
       sg_data = json.load(f)
 
     if use_sg_cache:
-      with open("image_id_to_sg_objects.json", 'r') as f:
+      with open(ID_TO_SG_FP, 'r') as f:
         self.image_id_to_sg_objects = json.load(f)
-      with open("image_id_to_relationships.json", 'r') as f:
+      with open(ID_TO_REL_FP, 'r') as f:
         self.image_id_to_relationships = json.load(f)
-      with open("pred_name_to_idx.json", "r") as f:
+      with open(PRD_TO_IDX_FP, "r") as f:
         self.vocab['pred_name_to_idx'] = json.load(f)
-      with open("pred_idx_to_name.json", "w") as f:
+      with open(IDX_TO_PRD_FP, "w") as f:
         self.vocab['pred_idx_to_name'] = json.load(f)
     else:
       object_name_counter = Counter()
@@ -243,16 +248,16 @@ class CocoSGDataset(Dataset):
       self.vocab['pred_idx_to_name'] = pred_idx_to_name
 
       # cache the scene graph results
-      with open("image_id_to_sg_objects.json", "w") as outfile:
+      with open(ID_TO_SG_FP, "w") as outfile:
         json.dump(self.image_id_to_sg_objects, outfile)
 
-      with open("image_id_to_relationships.json", "w") as outfile:
+      with open(ID_TO_REL_FP, "w") as outfile:
         json.dump(self.image_id_to_relationships, outfile)
 
-      with open("pred_name_to_idx.json", "w") as outfile:
+      with open(PRD_TO_IDX_FP, "w") as outfile:
         json.dump(self.vocab['pred_name_to_idx'], outfile)
 
-      with open("pred_idx_to_name.json", "w") as outfile:
+      with open(IDX_TO_PRD_FP, "w") as outfile:
         json.dump(self.vocab['pred_idx_to_name'], outfile)
 
 
