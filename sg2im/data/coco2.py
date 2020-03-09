@@ -259,6 +259,10 @@ class CocoSGDataset(Dataset):
         outfile.writelines(self.vocab['pred_idx_to_name'])
 
 
+    error_imgs_file = os.path.expanduser("/data/home/cs224n/sg2im/sg2im/data/error_imgids.txt")
+    self.image_ids = read_error_img_ids(error_imgs_file)
+    print('Read %d error images ids.' % (len(self.image_ids)))
+
     # Prune images that have too few or too many objects
     new_image_ids = []
     total_objs = 0
@@ -269,10 +273,6 @@ class CocoSGDataset(Dataset):
         new_image_ids.append(image_id)
     self.image_ids = new_image_ids
     print('After pruning, %d images left.' % (len(self.image_ids)))
-
-    error_imgs_file = os.path.expanduser("/data/home/cs224n/sg2im/sg2im/data/error_imgids.txt")
-    self.image_ids = read_error_img_ids(error_imgs_file)
-    print('Read %d error images ids.' % (len(self.image_ids)))
 
   def match_objs(self, sg_objs, coco_objs):
     match = {}

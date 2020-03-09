@@ -575,9 +575,13 @@ if __name__ == '__main__':
   # match, idx_map = match(a, b)
   # print(match)
   # print(idx_map)
+  image_id_to_sg_objects = defaultdict(list)
 
-  with open("pred_idx_to_name.json", 'r') as f:
+  with open("image_id_to_sg_objects.json", 'r') as f:
     image_id_to_sg_objects = json.load(f)
+
+  print(len(image_id_to_sg_objects))
+  print(image_id_to_sg_objects["391895a"])
   # with open(ID_TO_REL_FP, 'r') as f:
   #   self.image_id_to_relationships = json.load(f)
   # with open(PRD_TO_IDX_FP, "r") as f:
