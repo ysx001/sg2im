@@ -456,7 +456,7 @@ class CocoSGDataset(Dataset):
       p = self.vocab['pred_name_to_idx'][p]
       triples.append([s, p, o])
 
-    for rel in self.image_id_to_relationships[image_id]:
+    for rel in self.image_id_to_relationships.get(image_id, []):
       s = int(rel[0])
       p = self.vocab['pred_name_to_idx'].get(rel[1], None)
       o = int(rel[2])
