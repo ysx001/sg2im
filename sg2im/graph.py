@@ -73,8 +73,14 @@ class GraphTripleConv(nn.Module):
     s_idx = edges[:, 0].contiguous()
     o_idx = edges[:, 1].contiguous()
 
+    print("s_idx")
+    print(s_idx.size())
     print(s_idx)
+    print("obj_vecs")
+    print(obj_vecs.size())
     print(obj_vecs)
+    print("obj_vecs[s_idx]")
+    print(obj_vecs[s_idx].size())
     print(obj_vecs[s_idx])
 
     
