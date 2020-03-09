@@ -28,6 +28,8 @@ import pycocotools.mask as mask_utils
 
 from .utils import imagenet_preprocess, Resize
 
+ERROR_IMG_ID = "/data/home/cs224n/sg2im/sg2im/data/error_imgids1.txt"
+
 ID_TO_SG_FP = "/home/cs224n/sg2im/image_id_to_sg_objects.json"
 ID_TO_REL_FP = "/home/cs224n/sg2im/image_id_to_relationships.json"
 PRD_TO_IDX_FP = "/home/cs224n/sg2im/pred_name_to_idx.json"
@@ -257,6 +259,7 @@ class CocoSGDataset(Dataset):
 
       if write_to_cache:
         # cache the scene graph results
+        print("cache the scene graph results")
         with open(ID_TO_SG_FP, "w") as outfile:
           json.dump(self.image_id_to_sg_objects, outfile)
           print("Dumped %d images to sg object to json" %(len(self.image_id_to_sg_objects)))
@@ -274,7 +277,7 @@ class CocoSGDataset(Dataset):
           print("Dumped %d pred idx to name to file" %(len(self.vocab['pred_idx_to_name'])))
 
 
-    error_imgs_file = os.path.expanduser("/data/home/cs224n/sg2im/sg2im/data/error_imgids.txt")
+    error_imgs_file = os.path.expanduser(ERROR_IMG_ID)
     self.image_ids = read_error_img_ids(error_imgs_file)
     print('Read %d error images ids.' % (len(self.image_ids)))
 
