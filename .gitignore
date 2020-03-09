@@ -6,3 +6,5 @@ sg2im-models/
 env/
 datasets/
 sg2im_test_output*
+*.pt
+log*
