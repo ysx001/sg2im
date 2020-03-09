@@ -575,13 +575,21 @@ if __name__ == '__main__':
   # match, idx_map = match(a, b)
   # print(match)
   # print(idx_map)
-  image_id_to_sg_objects = defaultdict(list)
+  # image_id_to_sg_objects = defaultdict(list)
 
-  with open("image_id_to_sg_objects.json", 'r') as f:
-    image_id_to_sg_objects = json.load(f)
+  # with open("image_id_to_sg_objects.json", 'r') as f:
+  #   image_id_to_sg_objects = json.load(f)
 
-  print(len(image_id_to_sg_objects))
-  print(image_id_to_sg_objects["391895a"])
+  # print(len(image_id_to_sg_objects))
+  # print(image_id_to_sg_objects["391895a"])
+
+  one_list = ['a', 'b', 'c', 'd']
+  with open("test.txt", 'w') as f:
+    f.writelines("%s\n" % place for place in one_list)
+  
+  with open("test.txt", 'r') as f:
+    new_list = [item.rstrip() for item in f.readlines()]
+    print(new_list)
   # with open(ID_TO_REL_FP, 'r') as f:
   #   self.image_id_to_relationships = json.load(f)
   # with open(PRD_TO_IDX_FP, "r") as f:

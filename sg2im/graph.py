@@ -76,6 +76,14 @@ class GraphTripleConv(nn.Module):
     # Get current vectors for subjects and objects; these have shape (T, Din)
     cur_s_vecs = obj_vecs[s_idx]
     cur_o_vecs = obj_vecs[o_idx]
+
+    print("cur_s_vecs")
+    print(cur_s_vecs.size())
+    print("pred_vecs")
+    print(pred_vecs.size())
+    print("cur_o_vecs")
+    print(cur_o_vecs.size())
+    # print(cur_s_vecs)
     
     # Get current vectors for triples; shape is (T, 3 * Din)
     # Pass through net1 to get new triple vecs; shape is (T, 2 * H + Dout)

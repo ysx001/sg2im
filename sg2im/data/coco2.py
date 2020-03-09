@@ -235,12 +235,16 @@ class CocoSGDataset(Dataset):
       'surrounding',
       ]
       for pred, count in pred_counter.most_common():
-        pred_names.append(pred)
+        if pred not in pred_names:
+          pred_names.append(pred)
       print('Found %d relationship types' % (len(pred_names)))
 
       pred_name_to_idx = {}
       pred_idx_to_name = []
       for idx, name in enumerate(pred_names):
+        if pred_name_to_idx.get(name, None) != None:
+          print(idx)
+          print(name)
         pred_name_to_idx[name] = idx
         pred_idx_to_name.append(name)
       
