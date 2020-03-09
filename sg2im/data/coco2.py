@@ -28,7 +28,7 @@ import pycocotools.mask as mask_utils
 
 from .utils import imagenet_preprocess, Resize
 
-ERROR_IMG_ID = "/data/home/cs224n/sg2im/sg2im/data/error_imgids1.txt"
+ERROR_IMG_ID = "/data/home/cs224n/sg2im/sg2im/data/new_error_imgids.txt"
 
 ID_TO_SG_FP = "/home/cs224n/sg2im/image_id_to_sg_objects.json"
 ID_TO_REL_FP = "/home/cs224n/sg2im/image_id_to_relationships.json"
