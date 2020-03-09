@@ -174,6 +174,8 @@ class CocoSGDataset(Dataset):
         self.image_id_to_relationships = json.load(f)
       with open(PRD_TO_IDX_FP, "r") as f:
         self.vocab['pred_name_to_idx'] = json.load(f)
+      with open(IDX_TO_PRD_FP, "r") as f:
+        self.vocab['pred_idx_to_name'] = [item.rstrip() for item in f.readlines()]
     else:
       object_name_counter = Counter()
       pred_counter = Counter()
@@ -258,6 +260,10 @@ class CocoSGDataset(Dataset):
         with open(PRD_TO_IDX_FP, "w") as outfile:
           json.dump(self.vocab['pred_name_to_idx'], outfile)
           print("Dumped %d pred name to idx to json" %(len(self.vocab['pred_name_to_idx'])))
+
+        with open(IDX_TO_PRD_FP, "w") as outfile:
+          outfile.writelines("%s\n" % item for item in self.vocab['pred_idx_to_name'])
+          print("Dumped %d pred idx to name to file" %(len(self.vocab['pred_idx_to_name'])))
 
 
     error_imgs_file = os.path.expanduser("/data/home/cs224n/sg2im/sg2im/data/error_imgids.txt")
