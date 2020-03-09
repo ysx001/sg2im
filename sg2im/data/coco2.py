@@ -41,7 +41,7 @@ class CocoSGDataset(Dataset):
                include_relationships=True, min_object_size=0.02,
                min_objects_per_image=3, max_objects_per_image=8,
                include_other=False, instance_whitelist=None, 
-               stuff_whitelist=None, use_sg_cache=False):
+               stuff_whitelist=None, use_sg_cache=False, write_to_cache=False):
     """
     A PyTorch Dataset for loading Coco and Coco-Stuff annotations and converting
     them to scene graphs on the fly.
@@ -245,21 +245,19 @@ class CocoSGDataset(Dataset):
       self.vocab['pred_name_to_idx'] = pred_name_to_idx
       self.vocab['pred_idx_to_name'] = pred_idx_to_name
 
-      # cache the scene graph results
-      with open(ID_TO_SG_FP, "w") as outfile:
-        json.dump(self.image_id_to_sg_objects, outfile)
-        print("Dumped %d images to sg object to json" %(len(self.image_id_to_sg_objects)))
+      if write_to_cache:
+        # cache the scene graph results
+        with open(ID_TO_SG_FP, "w") as outfile:
+          json.dump(self.image_id_to_sg_objects, outfile)
+          print("Dumped %d images to sg object to json" %(len(self.image_id_to_sg_objects)))
 
-      with open(ID_TO_REL_FP, "w") as outfile:
-        json.dump(self.image_id_to_relationships, outfile)
-        print("Dumped %d images to relationships to json" %(len(self.image_id_to_relationships)))
+        with open(ID_TO_REL_FP, "w") as outfile:
+          json.dump(self.image_id_to_relationships, outfile)
+          print("Dumped %d images to relationships to json" %(len(self.image_id_to_relationships)))
 
-      with open(PRD_TO_IDX_FP, "w") as outfile:
-        json.dump(self.vocab['pred_name_to_idx'], outfile)
-        print("Dumped %d pred name to idx to json" %(len(self.vocab['pred_name_to_idx'])))
-
-      with open(IDX_TO_PRD_FP, "w") as outfile:
-        outfile.writelines(self.vocab['pred_idx_to_name'])
+        with open(PRD_TO_IDX_FP, "w") as outfile:
+          json.dump(self.vocab['pred_name_to_idx'], outfile)
+          print("Dumped %d pred name to idx to json" %(len(self.vocab['pred_name_to_idx'])))
 
 
     error_imgs_file = os.path.expanduser("/data/home/cs224n/sg2im/sg2im/data/error_imgids.txt")

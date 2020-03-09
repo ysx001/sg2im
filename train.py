@@ -246,7 +246,8 @@ def build_coco_sg_dsets(args):
     'stuff_whitelist': args.stuff_whitelist,
     'include_other': args.coco_include_other,
     'include_relationships': args.include_relationships,
-    'use_sg_cache': args.use_sg_cache
+    'use_sg_cache': args.use_sg_cache,
+    'write_to_cache': True
   }
   train_dset = CocoSGDataset(**dset_kwargs)
   num_objs = train_dset.total_objects()
@@ -259,6 +260,7 @@ def build_coco_sg_dsets(args):
   dset_kwargs['sg_json'] = args.coco_val_sg_json
   dset_kwargs['stuff_json'] = args.coco_val_stuff_json
   dset_kwargs['max_samples'] = args.num_val_samples
+  dset_kwargs['write_to_cache'] = False
   val_dset = CocoSGDataset(**dset_kwargs)
 
   # assert train_dset.vocab == val_dset.vocab
