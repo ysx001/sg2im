@@ -170,16 +170,16 @@ class CocoSGDataset(Dataset):
     if use_sg_cache and write_to_cache:
       with open(ID_TO_SG_FP, 'r') as f:
         self.image_id_to_sg_objects = json.load(f)
-        print("Read %d images to sg object to json" %(len(self.image_id_to_sg_objects)))
+        print("Read %d images to sg object from json" %(len(self.image_id_to_sg_objects)))
       with open(ID_TO_REL_FP, 'r') as f:
         self.image_id_to_relationships = json.load(f)
-        print("Read %d images to relationships to json" %(len(self.image_id_to_relationships)))
+        print("Read %d images to relationships from json" %(len(self.image_id_to_relationships)))
       with open(PRD_TO_IDX_FP, "r") as f:
         self.vocab['pred_name_to_idx'] = json.load(f)
-        print("Read %d pred name to idx to json" %(len(self.vocab['pred_name_to_idx'])))
+        print("Read %d pred name to idx from json" %(len(self.vocab['pred_name_to_idx'])))
       with open(IDX_TO_PRD_FP, "r") as f:
         self.vocab['pred_idx_to_name'] = [item.rstrip() for item in f.readlines()]
-        print("Read %d pred idx to name to file" %(len(self.vocab['pred_idx_to_name'])))
+        print("Read %d pred idx to name from file" %(len(self.vocab['pred_idx_to_name'])))
     else:
       object_name_counter = Counter()
       pred_counter = Counter()
