@@ -93,9 +93,13 @@ class CocoSGDataset(Dataset):
     # for 5 different captions
     self.suffix = ['a', 'b', 'c', 'd', 'e']
 
-
     with open(instances_json, 'r') as f:
       instances_data = json.load(f)
+
+    stuff_data = None
+    if stuff_json is not None and stuff_json != '':
+      with open(stuff_json, 'r') as f:
+        stuff_data = json.load(f)
     
     self.image_ids = []
     self.original_image_ids = []
@@ -128,6 +132,15 @@ class CocoSGDataset(Dataset):
       all_instance_categories.append(category_name)
       object_idx_to_name[category_id] = category_name
       self.vocab['object_name_to_idx'][category_name] = category_id
+    
+    all_stuff_categories = []
+    if stuff_data:
+      for category_data in stuff_data['categories']:
+        category_name = category_data['name']
+        category_id = category_data['id']
+        all_stuff_categories.append(category_name)
+        object_idx_to_name[category_id] = category_name
+        self.vocab['object_name_to_idx'][category_name] = category_id
 
     # COCO category labels start at 1, so use 0 for __image__
     self.vocab['object_name_to_idx']['__image__'] = 0
@@ -164,6 +177,25 @@ class CocoSGDataset(Dataset):
           self.image_id_to_objects_bbox[new_image_id][object_name] = object_data['bbox']
           self.image_id_to_objects_seg[new_image_id][object_name] = object_data['segmentation']
 
+    # Add object data from stuff
+    if stuff_data:
+      image_ids_with_stuff = set()
+      for object_data in stuff_data['annotations']:
+        image_id = object_data['image_id']
+        image_ids_with_stuff.add(image_id)
+        _, _, w, h = object_data['bbox']
+        W, H = self.image_id_to_size[image_id]
+        box_area = (w * h) / (W * H)
+        box_ok = box_area > min_object_size
+        object_name = object_idx_to_name[object_data['category_id']]
+        other_ok = object_name != 'other' or include_other
+        if box_ok and other_ok:
+          for suf in self.suffix:
+            new_image_id = str(image_id) + suf
+            self.image_id_to_objects_names[new_image_id].append(object_name)
+            self.image_id_to_objects[new_image_id].append(object_data)
+            self.image_id_to_objects_bbox[new_image_id][object_name] = object_data['bbox']
+            self.image_id_to_objects_seg[new_image_id][object_name] = object_data['segmentation']
     # Add object data from instances
     self.image_id_to_sg_objects = defaultdict(list)
     self.image_id_to_relationships = defaultdict(list)
