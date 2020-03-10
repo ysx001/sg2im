@@ -141,7 +141,7 @@ parser.add_argument('--print_every', default=10, type=int)
 parser.add_argument('--timing', default=False, type=bool_flag)
 parser.add_argument('--checkpoint_every', default=10000, type=int)
 parser.add_argument('--output_dir', default=os.getcwd())
-parser.add_argument('--checkpoint_name', default='checkpoint')
+parser.add_argument('--checkpoint_name', default='sg2im-models/coco64.pt')
 parser.add_argument('--checkpoint_start_from', default=None)
 parser.add_argument('--restore_from_checkpoint', default=False, type=bool_flag)
 
@@ -489,17 +489,25 @@ def main(args):
     optimizer_d_img = torch.optim.Adam(img_discriminator.parameters(),
                                        lr=args.learning_rate)
 
+  device = torch.device('cuda:0')
+  if not torch.cuda.is_available():
+    print('WARNING: CUDA not available; falling back to CPU')
+    device = torch.device('cpu')
+
   restore_path = None
   if args.restore_from_checkpoint:
-    restore_path = '%s_with_model.pt' % args.checkpoint_name
-    restore_path = os.path.join(args.output_dir, restore_path)
-  if restore_path is not None and os.path.isfile(restore_path):
+  #   restore_path = '%s_with_model.pt' % args.checkpoint_name
+  #   restore_path = os.path.join(args.output_dir, restore_path)
+  # if restore_path is not None and os.path.isfile(restore_path):
+  #   print('Restoring from checkpoint:')
+  #   print(restore_path)
+  #   checkpoint = torch.load(restore_path)
+  #   model.load_state_dict(checkpoint['model_state'])
+  #   optimizer.load_state_dict(checkpoint['optim_state'])
     print('Restoring from checkpoint:')
-    print(restore_path)
-    checkpoint = torch.load(restore_path)
+    map_location = 'cpu' if device == torch.device('cpu') else None
+    checkpoint = torch.load(args.checkpoint_name, map_location=map_location)
     model.load_state_dict(checkpoint['model_state'])
-    optimizer.load_state_dict(checkpoint['optim_state'])
-
     if obj_discriminator is not None:
       obj_discriminator.load_state_dict(checkpoint['d_obj_state'])
       optimizer_d_obj.load_state_dict(checkpoint['d_obj_optim_state'])
