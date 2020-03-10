@@ -141,6 +141,9 @@ class CocoSGDataset(Dataset):
       idx_to_name[idx] = name
     self.vocab['object_idx_to_name'] = idx_to_name
 
+    print(len(self.vocab['object_idx_to_name']))
+    print(len(self.vocab['object_name_to_idx']))
+
     # Add object data from instances
     self.image_id_to_objects = defaultdict(list)
     self.image_id_to_objects_names = defaultdict(list)
@@ -333,7 +336,7 @@ class CocoSGDataset(Dataset):
     for i, image_id in enumerate(self.image_ids):
       if self.max_samples and i >= self.max_samples:
         break
-      num_objs = len(self.image_id_to_objects[image_id])
+      num_objs = len(self.image_id_to_sg_objects[image_id])
       total_objs += num_objs
     return total_objs
 

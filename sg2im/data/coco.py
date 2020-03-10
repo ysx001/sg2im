@@ -184,6 +184,9 @@ class CocoSceneGraphDataset(Dataset):
       idx_to_name[idx] = name
     self.vocab['object_idx_to_name'] = idx_to_name
 
+    print(len(self.vocab['object_idx_to_name']))
+    print(len(self.vocab['object_name_to_idx']))
+
     # Prune images that have too few or too many objects
     new_image_ids = []
     total_objs = 0
