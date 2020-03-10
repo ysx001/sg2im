@@ -237,6 +237,7 @@ def build_coco_sg_dsets(args):
     'image_dir': args.coco_train_image_dir,
     'instances_json': args.coco_train_instances_json,
     'sg_json': args.coco_train_sg_json,
+    'stuff_json': args.coco_train_stuff_json,
     'image_size': args.image_size,
     'mask_size': args.mask_size,
     'max_samples': args.num_train_samples,
