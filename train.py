@@ -497,18 +497,18 @@ def main(args):
 
   restore_path = None
   if args.restore_from_checkpoint:
-  #   restore_path = '%s_with_model.pt' % args.checkpoint_name
-  #   restore_path = os.path.join(args.output_dir, restore_path)
-  # if restore_path is not None and os.path.isfile(restore_path):
-  #   print('Restoring from checkpoint:')
-  #   print(restore_path)
-  #   checkpoint = torch.load(restore_path)
-  #   model.load_state_dict(checkpoint['model_state'])
-  #   optimizer.load_state_dict(checkpoint['optim_state'])
+    restore_path = '%s_with_model.pt' % args.checkpoint_name
+    restore_path = os.path.join(args.output_dir, restore_path)
+  if restore_path is not None and os.path.isfile(restore_path):
     print('Restoring from checkpoint:')
-    map_location = 'cpu' if device == torch.device('cpu') else None
-    checkpoint = torch.load(args.checkpoint_name, map_location=map_location)
+    print(restore_path)
+    checkpoint = torch.load(restore_path)
     model.load_state_dict(checkpoint['model_state'])
+    optimizer.load_state_dict(checkpoint['optim_state'])
+    # print('Restoring from checkpoint:')
+    # map_location = 'cpu' if device == torch.device('cpu') else None
+    # checkpoint = torch.load(args.checkpoint_name, map_location=map_location)
+    # model.load_state_dict(checkpoint['model_state'])
     if obj_discriminator is not None:
       obj_discriminator.load_state_dict(checkpoint['d_obj_state'])
       optimizer_d_obj.load_state_dict(checkpoint['d_obj_optim_state'])
